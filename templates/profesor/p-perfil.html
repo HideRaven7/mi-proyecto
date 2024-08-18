@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <main class="main-container">
+        <section class="modals-container">
+            <article class="modal-perfil">
+                <div class="perfil-izquierda">
+                    <h4 class="titulo-perfil">Profesor</h4>
+                    <figure class="perfil-estudiante perfil-profesor">
+                        <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-2.jpg') }}" alt="img-perfil">
+                    </figure>
+                </div>
+                <div class="perfil-derecho">
+                    <div class="perfil-derecha-arriba">
+                        <h2>Miguel Enrique Martinez</h2>
+                        <p>1-22-0500</p>
+                    </div>
+                    <div class="datos datos1">
+                        <h3>Email</h3>
+                        <p>MiguelEnm@gmail.com</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Cedula</h3>
+                        <p>031-0071899-9</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Materia</h3>
+                        <p>Matem&aacute;ticas</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Genero</h3>
+                        <p>Masculino</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Dirección</h3>
+                        <p>Calle 16 de Agosto #01</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Telefono</h3>
+                        <p>809-101-0000</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>
+</body>
+</html>

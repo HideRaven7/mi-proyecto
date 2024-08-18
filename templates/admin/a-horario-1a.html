@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-home">
+                            <a href="/home/admin/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu nav-menu-top">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container">
+            <section class="section-horario-admin">
+                <div class="cabecera-agg-refuerzo cabecera-libro" id="cabecera-horario-admin">
+                    <div class="cabecera-flex">
+                        <a href="/admin/curso" class="regresar-libro-video">Regresar</a>                        
+                        <h1 class="titulo-refuerzo titulo-libro">1ro - A</h1>
+                    </div>
+                </div>
+                <article class="admin-horario">
+                    <div id="scroll-horario-admin">
+                        <table class="tabla-horario tabla-horario-a" id="t-admin-horario">
+                            <tr class="tabla-cabecera">
+                                <th>Horas</th>
+                                <th>Lunes</th>
+                                <th>Martes</th>
+                                <th>Miércoles</th>
+                                <th>Jueves</th>
+                                <th>Viernes</th>
+                            </tr>
+                            <tr>
+                                <td>7:00</td>
+                                <td><input type="text" value="Matem&aacute;ticas"></td>
+                                <td><input type="text" value="L. Española"></td>
+                                <td><input type="text" value="Naturales"></td>
+                                <td><input type="text" value="Sociales"></td>
+                                <td><input type="text" value="Artes"></td>
+                            </tr>
+                            <tr>
+                                <td>8:00</td>
+                                <td><input type="text" value="Sociales"></td>
+                                <td><input type="text" value="Artes"></td>
+                                <td><input type="text" value="Ed. Física"></td>
+                                <td><input type="text" value="Matemáticas"></td>
+                                <td><input type="text" value="Naturales"></td>
+                            </tr>
+                            <tr>
+                                <td>9:00</td>
+                                <td>RE</td>
+                                <td>C</td>
+                                <td>R</td>
+                                <td>E</td>
+                                <td>O</td>
+                            </tr>
+                            <tr>
+                                <td>10:00</td>
+                                <td><input type="text" value="Inglés"></td>
+                                <td><input type="text" value="Religión"></td>
+                                <td><input type="text" value="Inglés"></td>
+                                <td><input type="text" value="Informática"></td>
+                                <td><input type="text" value="Sociales"></td>
+                            </tr>
+                            <tr>
+                                <td>11:00</td>
+                                <td><input type="text" value="Informática"></td>
+                                <td><input type="text" value="Matemáticas"></td>
+                                <td><input type="text" value="Sociales"></td>
+                                <td><input type="text" value="Ed. Física"></td>
+                                <td><input type="text" value="L. Española"></td>
+                            </tr>
+                            <tr>
+                                <td>12:00</td>
+                                <td><input type="text" value="Religión"></td>
+                                <td><input type="text" value="Sociales"></td>
+                                <td><input type="text" value="Artes"></td>
+                                <td><input type="text" value="Inglés"></td>
+                                <td><input type="text" value="Matemáticas"></td>
+                            </tr>
+                            <button type="submit"></button>
+                        </table>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu-admin.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

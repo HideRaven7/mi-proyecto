@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-home">
+                            <a href="/home/estudiante/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container main-curso-material" id="ver-material-mobile">    
+            <div class="materia-clases-elegir">
+                <h2>{{ material.titulo }}</h2>
+            </div>            
+            <div class="imagen-de-fondo-curso">
+                <figure>
+                    <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-de-fondo">
+                    <figcaption>
+                        {{ material.nom_asignatura }}
+                    </figcaption>
+                </figure>
+            </div>
+            <section class="curso-material-container">
+                <form action="/estudiante/enviar/tarea/" method="post" enctype="multipart/form-data" class="c-curso-izquierdo">
+                    <input type="hidden" name="material_id" value="{{ material.id_material }}">
+                    <article class="curso-descargar">
+                        <h3>Descargar Archivo</h3>
+                        <a href="{{ url_for('static', filename=material.archivo_nombre) }}" download="{{ material.material_subido }}">Click</a>
+                    </article>
+                    <article class="curso-subir-tarea">
+                        <div id="previsualizacion"></div>
+                        <label for="subir-tarea" id="subir-recurso-estudio">Subir Tarea</label>
+                        <input type="file" id="subir-tarea" name="subir-tarea">
+                    </article>
+                    <div class="botones-curso botones-curso-p">
+                        <button type='submit' value="Enviar">Enviar</button>
+                    </div>
+                </form>
+                <div class="c-curso-central">
+                    <article class="curso-main">
+                        <div class="informacion-profesor-material">
+                            <figure>
+                                <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-2.jpg') }}" alt="profesor">
+                            </figure>
+                            <h3><span class="profesor-material-span">Profesor:</span></h3>
+                        </div>
+                        <div class="contenedor-material-curso">
+                            <div class="descripcion-material-curso">
+                                <p>{{ material.descripcion }}</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/previsualizar_archivos.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/recargar_paginas.js') }}"></script>
+</body>
+</html>

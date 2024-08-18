@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <figure class="jesIMG-container">
+                <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+            </figure>            
+            <div class="jes-titulo">
+                <h2>JES</h2>
+                <h3>Junior Explorers System</h3>                
+            </div>
+            <nav class="nav-container">
+                <ul>
+                    <li class="nav-home">
+                        <a href="/home/admin/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                    </li>
+                    <li class="nav-menu">
+                        <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-container main-curso-material">
+        <section class="cursos-admin" id="a-reporte-profesor-section">                
+            <a href="/admin/reportes" id="regresar-admin" class="mobile-none">
+                <figure>
+                    <img src="{{ url_for('static', filename='imagenes/iconos/angle-left.svg') }}" alt="regresar">
+                </figure>
+            </a>
+            <article class="profesor-principal" id="profesor-p-reporte">
+                <div class="imagen-profesor-principal">
+                    <figure>
+                        <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-2.jpg') }}" alt="profesor">
+                    </figure>
+                </div>
+                <div class="descripcion-profesor-admin">
+                    <h2>Matem&aacute;ticas</h2>
+                    <h3>Miguel Enrique Martinez</h3>
+                </div>
+            </article>
+            <article class="tabla-curso-estudiantes" id="article-reporte-profesor">
+                <table class="tabla-asistencia tabla-admin-e" id="tabla-reporte-profesor">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Ciclo</th>
+                        <th>Califiacion</th>
+                        <th>Asistencia</th>
+                    </tr>
+                    {{% for %}}
+                    <tr class="fila-calificacion">
+                        <td>30/09/2023</td>
+                        <td>Agosto-Septiembre</td>
+                        <td class="ver-estudiante-p"><a href="/admin/reportes-calificacion" class="ver-recurso"><figure><img src="{{ url_for('static', filename='imagenes/iconos/angle-small-right.svg') }}" alt="ver-estudiante"></figure></a></td>
+                        <td class="ver-estudiante-p"><a href="/admin/reportes-asistencias" class="ver-recurso"><figure><img src="{{ url_for('static', filename='imagenes/iconos/angle-small-right.svg') }}" alt="ver-estudiante"></figure></a></td>
+                    </tr>
+                    {{% endfor %}}
+                </table>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

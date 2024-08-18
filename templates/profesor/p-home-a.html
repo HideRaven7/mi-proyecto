@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" rel="icon" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-perfil">
+                            <a href="/profesor/perfil" class="li-perfil"><figure><img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-2.jpg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu-home">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container">
+            <div class="seleccion-cursos-p">
+                <form action="#">
+                    <select name="cursos" id="cursos">
+                        <option value="#" >1ro - A</option>
+                        <option value="#">2do - A</option>
+                        <option value="#">3ro - A</option>
+                    </select>
+                </form>
+            </div>
+            <section class="section-top-container">
+                <article class="material-container">
+                    <a href="/profesor/refuerzo/libros/">
+                        <h2>Refuerzo de clase</h2> 
+                        <figure><img src="{{ url_for('static', filename='imagenes/iconos/formulario.svg') }}" alt="refuerzo-de-clase-img"></figure>                     
+                    </a>
+                </article>
+                <article class="material-container">
+                    <a href="/profesor/materiales">
+                        <figure class="material-figure"><img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}" alt="perfil-estudiante"></figure>
+                        <h2>Recurso De Estudio</h2>                        
+                    </a>
+                </article>
+                <article class="calendario-container">
+                    <a href="/profesor/reporte">
+                        <h2>Reporte del curso</h2> 
+                        <figure><img src="{{ url_for('static', filename='imagenes/iconos/calendario-reloj.svg') }}" alt="recordatorio"></figure>
+                    </a>
+                </article>
+            </section>
+           <section class="ca-ho-section">
+    <div class="ca-ho-botones">
+        <button class="btn-calificaciones btn-caho-active">Calificaciones</button>
+        <button class="btn-horario">Asistencia</button>
+    </div>
+    <div class="ca-ho-scroll">
+        <article class="tabla-centrar tabla-calificacion-centrar">
+                    <div class="scroll-calificacion-p">
+                        <table class="tabla-calificacion tabla-asistencia">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Info</th>
+                                <th>C1</th>
+                                <th>C2</th>
+                                <th>C3</th>
+                                <th>C4</th>
+                                <th>Calificaci&oacute;n Final</th>
+                            </tr>
+                            <tr class="fila-calificacion">
+                                <td>1010</td>
+                                <td>Albiery</td>
+                                <td>Rodriguez</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text" value="" oninput="sumarCalificaciones()"></td>
+                            </tr>
+                            <tr class="fila-calificacion">
+                                <td>1011</td>
+                                <td>Smailyn</td>
+                                <td>Burgos</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text" value="" oninput="sumarCalificaciones()"></td>
+                            </tr>
+                            <tr class="fila-calificacion">
+                                <td>1012</td>
+                                <td>Massiel</td>
+                                <td>Rodriguez</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}"alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text" value="" oninput="sumarCalificaciones()"></td>
+                            <tr class="fila-calificacion">
+                                <td>1013</td>
+                                <td>Faury</td>
+                                <td>Garcia</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text" value="" oninput="sumarCalificaciones()"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </article>
+            </div>
+            </section>
+                <article class="tabla-centrar tabla-horario-centrar">
+                    <div class="scroll-calificacion-p">
+                        <table class="tabla-horario tabla-asistencia">
+                            <tr>
+                                <th>Matrícula</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Info</th>
+                                <th>Sect-Oct</th>
+                                <th>Nov-Dic</th>
+                                <th>Enero-Feb</th>
+                                <th>Marz-Abril</th>
+                                <th>May-Junio</th>
+                                <th>Total de Asistencias</th>
+                            </tr>
+                            <tr class="fila-asistencia">
+                                <td>1010</td>
+                                <td>Albiery</td>
+                                <td>Rodriguez</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}"alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text" value="" oninput="calcularPorcentaje()"></td>
+                            </tr>
+                            <tr class="fila-asistencia">
+                                <td>1011</td>
+                                <td>Smailyn</td>
+                                <td>Burgos</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text" value="" oninput="calcularPorcentaje()"></td>
+                            </tr>
+                            <tr class="fila-asistencia">
+                                <td>1012</td>
+                                <td>Massiel</td>
+                                <td>Rodriguez</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text"></td>
+                                <td><input type="text" value="" oninput="calcularPorcentaje()"></td>
+                            </tr>
+                            <tr class="fila-asistencia">
+                                <td>1013</td>
+                                <td>Faury</td>
+                                <td>Garcia</td>
+                                <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text" ></td>
+                                <td><input type="text"></td>
+                                <td><input type="text" value="" oninput="calcularPorcentaje()"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </article>
+            </div>
+            </section>
+            <div class="modal-p-estudiantes">
+                <article class="modal-perfil">
+                    <div class="perfil-izquierda">
+                        <h4 class="titulo-perfil">Estudiante</h4>
+                        <figure class="perfil-estudiante perfil-profesor">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/perfil-femenino.jpg') }}"alt="img-perfil">
+                        </figure>
+                        <div class="perfil-izquierda-abajo">
+                            <h6>Grado</h6>
+                            <h4>1ro A </h4>
+                        </div>
+                    </div>
+                    <div class="perfil-derecho">
+                        <div class="perfil-derecha-arriba">
+                            <h2>Emmy Garcia</h2>
+                            <p>1-22-0500</p>
+                        </div>
+                        <div class="datos datos1">
+                            <h3>Email</h3>
+                            <p>emmyMaria@gmail.com</p>
+                        </div>
+                        <div class="datos">
+                            <h3>Fecha de Nacimiento</h3>
+                            <p>10-05-2009</p>
+                        </div>
+                        <div class="datos">
+                            <h3>Genero</h3>
+                            <p>Femenino</p>
+                        </div>
+                        <div class="datos">
+                            <h3>Dirección</h3>
+                            <p>Calle 16 de Agosto #01</p>
+                        </div>
+                        <div class="datos">
+                            <h3>Telefono</h3>
+                            <p>809-101-0000</p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/cambiar-cursos.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ca-ho.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/promedio-calificacion.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/promedio-asistencia.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refuerzo de estudio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-home">
+                            <a href="/home/estudiante/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container">
+            <section class="section-materiales section-libros-refuerzo-e section-margin-top" id="libros-section">
+                <div class="cabecera-agg-material cabecera-agg-refuerzo">
+                    <div class="cabecera-flex">
+                        <div class="contenedor-a-cabecera">
+                            <a href="#" id="recurrente-a-refuerzo">Libros</a>
+                            <a href="{{ url_for('e_refuerzo_videos') }}">Videos</a>
+                        </div>
+                        <h2 class="titulo-refuerzo titulo-none">Recursos de Estudio</h2>                        
+                    </div>
+                    <form action="#">
+                        <!-- <select name="materias-refuerzo" id="materias-refuerzo">
+                            <option value="">Todos</option>
+                            <option value="">Lengua Espa&ntilde;ola</option>
+                            <option value="">Matemáticas</option>
+                            <option value="">Ingles</option>
+                            <option value="">Biolog&iacute;a</option>
+                        </select> -->
+                        <input type="search" name="materias-refuerzo" id="materias-refuerzo" style="float: right; margin-right: 2%; position: relative; bottom: 5px; background-color: transparent; border: 1px solid #ffc83d5e; padding: 3.5px 2px; padding-left: 10px; border-radius: 2px; color: white;">
+                    </form>
+                </div>
+                {% for libro in libros %}
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>{{libro.nom_asignatura}}</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{libro.portada}}" alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <h3>{{libro.titulo}}</h3>
+                            <a href="{{ url_for('e_libro', titulo=libro.titulo) }}">ver</a>                        
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

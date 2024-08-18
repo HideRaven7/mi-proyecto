@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material de estudio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-home">
+                            <a href="/home/estudiante/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container">
+            <section class="section-materiales">
+                <div class="cabecera-agg-material">
+                    <div class="cabecera-materiales-flex">
+                        <h2 class="titulo-material">Material de estudio</h2>
+                        <form action="/estudiante/material/" method="POST" class="form-agg-material">
+                            <select name="materias-agg" id="materias-agg">
+                                {% for asignatura in asignaturas %}
+                                <option value="{{ asignatura.id_asignatura }}">{{ asignatura.nom_asignatura }}</option>
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Buscar</button>
+                        </form>
+                    </div>
+                </div>
+                {% for material in materiales %}
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>{{ material.titulo }}</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <h3>{{ material.nom_asignatura }}</h3>
+                            <a href="{{ url_for('ver_materia', titulo=material.titulo) }}">ver</a>
+                        </div>
+                    </div>
+                </article>
+                {% else %}
+                    <p>Selecciona la materia de la cual quieres buscar el material</p>
+                {% endfor %}
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/perfil-modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <main class="main-container main-curso-material">            
+            <section class="modals-container agregar-material-section">
+                <form action="/profesor/reporte/admin/" method="post" enctype="multipart/form-data">
+                    <fieldset class="agregar-material-fieldset">
+                        <legend>Informe de 1ro - A</legend>
+                        <div class="dato-report">
+                            <label for="report-asistencia">Asistencia</label>
+                            <input type="file" id="report-asistencia" name="report-asistencia">
+                        </div>
+                        <div class="dato-report">
+                            <label for="report-calificacion">Calificación</label>
+                            <input type="file" id="report-calificacion" name="report-calificacion">
+                        </div>                    
+                    </fieldset>                        
+                    <div class="botones-agg-material">
+                            <input type="submit" value="Enviar">
+                            <input type="reset" value="Rehacer">
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cerrar-modal-agg-material.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

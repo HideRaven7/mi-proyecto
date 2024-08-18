@@ -1,0 +1,29 @@
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+<script src="../js/a-agregar-profesor-cursos.js"></script>
+<main id="mainContent">
+    <button id="agg-profesor-btn" class="btn">Agregar Profesor</button>
+    <div id="agregarProfesorModal" class="modal">
+        <div class="modal-content">
+        <button class="close" aria-label="Cerrar">&times;</button>
+        <h2 id="h2-modal-agg-profesor">Agregar Profesor al Curso</h2>
+        <div class="search-bar">
+            <div>
+            <label>
+                <input type="radio" name="searchOption" value="materia" checked> Buscar por Materia
+            </label>
+            <label>
+                <input type="radio" name="searchOption" value="matricula"> Buscar por Matrícula
+            </label>
+            </div>
+            <input type="text" id="searchInput" placeholder="Buscar...">
+            <button id="searchBtn" class="btn">Buscar</button>
+        </div>
+        <div id="profesorList">
+            <!-- Lista para mostrar los profesores -->
+        </div>
+        <button id="addProfesorBtn" class="btn">Agregar</button>
+        </div>
+    </div>
+</main>
+

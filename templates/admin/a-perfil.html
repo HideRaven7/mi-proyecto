@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <main class="main-container">
+        <section class="modals-container">
+            <article class="modal-perfil modal-perfil-admin">
+                <div class="perfil-izquierda">
+                    <h4 class="titulo-perfil">Administrador</h4>
+                    <figure class="perfil-estudiante perfil-profesor" id="perfil-admin-img">
+                        <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-3.jpg') }}" alt="img-perfil">
+                    </figure>
+                </div>
+                <div class="perfil-derecho">
+                    <div class="perfil-derecha-arriba">
+                        <h2>{{ admin.nombre_admin }}</h2>
+                        <p>{{ admin.matricula }}</p>
+                    </div>
+                    <div class="datos datos1">
+                        <h3>Email</h3>
+                        <p>{{ admin.a_email }}</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Genero</h3>
+                        <p>{{ admin.a_genero }}</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Dirección</h3>
+                        <p>{{ admin.a_direccion }}</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Telefono</h3>
+                        <p>{{ admin.a_telefono }}</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-perfil">
+                            <a href="/admin/perfil" class="li-perfil"><figure><img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-3.jpg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu-home">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container"> 
+            <section class="section-top-container">
+                <article class="material-container">
+                    <a href="/admin/cursos">
+                        <h2>Cursos</h2> 
+                        <figure><img src="{{ url_for('static', filename='imagenes/iconos/formulario.svg') }}" alt="refuerzo-de-clase-img"></figure>                     
+                    </a>
+                </article>
+                <article class="material-container">
+                    <a href="/admin/materias">
+                        <figure class="material-figure"><img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}" alt="perfil-estudiante"></figure>
+                        <h2>Materias</h2>                        
+                    </a>
+                </article>
+                <article class="calendario-container">
+                    <a href="/admin/reportes">
+                        <h2>Reportes de los cursos</h2> 
+                        <figure><img src="{{ url_for('static', filename='imagenes/iconos/calendario-reloj.svg') }}" alt="recordatorio"></figure>
+                    </a>
+                </article>
+            </section>
+            <section class="ca-ho-section">
+                <div class="ca-ho-botones">
+                    <button class="btn-calificaciones btn-caho-active">Estudiantes</button>
+                    <button class="btn-horario">Profesores</button>
+                </div>
+                <div class="ca-ho-scroll">
+                    <article class="tabla-centrar tabla-calificacion-centrar">                        
+                        <div class="cabecera-tabla-estudiantes-a cabecera-profesor-a">
+                            <a href="#" class="agg-es-pro">Agregar</a>
+                            <form action="#">
+                                <input type="search" id="buscar-estudiantes" placeholder="Buscar estudiante...">
+                            </form>
+                        </div>
+                        <div class="tabla-admin">
+                            <table class="tabla-calificacion tabla-asistencia">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Matricula</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>F. Nacimiento</th>
+                                        <th>Curso</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-estudiantes">
+                                    {% for estudiante in estudiantes %}
+                                    <tr class="fila-calificacion">
+                                        <td>{{ estudiante.id_estudiante }}</td>
+                                        <td>{{ estudiante.matricula }}</td>
+                                        <td>{{ estudiante.nombre }}</td>
+                                        <td>{{ estudiante.apellidos }}</td>
+                                        <td>{{ estudiante.fecha_nacimiento }}</td>
+                                        <td>{{ estudiante.id_curso }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                    <article class="tabla-centrar tabla-horario-centrar">
+                        <div class="cabecera-tabla-estudiantes-a cabecera-profesor-a">
+                            <a href="#" class="agg-es-pro">Agregar</a>
+                            <form action="#">
+                                <input type="search" id="buscar-profesores" placeholder="Buscar profesor...">
+                            </form>
+                        </div>
+                        <div class="tabla-admin tadmin">
+                            <table class="tabla-horario tabla-asistencia">
+                                <thead id="thead-admin">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Matrícula</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Ced&uacute;la</th>
+                                        <th>Asignatura</th>
+                                    </tr>                                
+                                </thead>
+                                <tbody id="tbody-profesores">
+                                    {% for profesor in profesores %}
+                                    <tr class="fila-calificacion">
+                                        <td>{{ profesor.id_profesor }}</td>
+                                        <td>{{ profesor.matricula }}</td>
+                                        <td>{{ profesor.nombre }}</td>
+                                        <td>{{ profesor.apellido }}</td>
+                                        <td>{{ profesor.cedula }}</td>
+                                        <td>{{ profesor.id_asignatura }}</td>
+                                    </tr>
+                                    {% endfor %}                                
+                                </tbody>
+                            </table>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu-admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ca-ho.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
+</body>
+</html>

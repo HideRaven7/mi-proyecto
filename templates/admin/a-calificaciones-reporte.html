@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte Calificaci&oacute;n</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <figure class="jesIMG-container">
+                <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+            </figure>            
+            <div class="jes-titulo">
+                <h2>JES</h2>
+                <h3>Junior Explorers System</h3>                
+            </div>
+            <nav class="nav-container">
+                <ul>
+                    <li class="nav-home">
+                        <a href="/home/admin/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                    </li>
+                    <li class="nav-menu">
+                        <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-container main-curso-material">
+        <section class="cursos-admin">
+            <article class="profesor-principal">
+                <div class="imagen-profesor-principal">
+                    <figure>
+                        <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-2.jpg') }}" alt="profesor">
+                    </figure>
+                </div>
+                <div class="descripcion-profesor-admin">
+                    <h2>{{ profesores.nombre }}</h2>
+                    <h3>{{ profesores.id_asignatura }}</h3>
+                </div>
+            </article>
+            <article class="article-reporte-iframe">
+                <div class="cabecera-agg-material cabecera-agg-refuerzo" id="cabecera-admin-reporte">
+                    <div class="cabecera-flex">
+                        <a href="/admin/reportes-profesor">Ir atr&aacute;s</a>
+                        <h2 class="titulo-refuerzo">1ro - A</h2>
+                    </div>
+                </div>
+                <iframe src="{{ url_for('static', filename='Ecuaciones1.pdf') }}" frameborder="0"></iframe>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

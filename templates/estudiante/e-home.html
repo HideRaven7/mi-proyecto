@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <figure class="jesIMG-container">
+                <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+            </figure>            
+            <div class="jes-titulo">
+                <h2>JES</h2>
+                <h3>Junior Explorers System</h3>                
+            </div>
+            <nav class="nav-container">
+                <ul>
+                    <li class="nav-perfil">
+                        <a href="/estudiante/perfil/" class="li-perfil">
+                            <figure><img src="{{ estudiante.imagen_perfil }}" alt="perfil"></figure>
+                        </a>
+                    </li>
+                    <li class="nav-menu-home">
+                        <a href="#" class="menu">
+                            <figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+<main class="main-container">
+    <section class="section-top-container">
+        <article class="asistencia-art-container">
+            <div class="barra-circular" data-porcentaje="100">
+                <svg viewBox="0 0 33.83 33.83">
+                    <circle class="background-circular" cx="16.92" cy="16.92" r="15.92"></circle>
+                    <circle class="progreso-circular" cx="16.92" cy="16.92" r="15.92"></circle>
+                </svg>
+                <span class="porcentaje">{{ porcentaje }}%</span>
+            </div>
+            <div class="asistencia-h">
+                <h3>Asistencia</h3>
+                <h4>General</h4>
+            </div>
+        </article>
+        <article class="material-container">
+            <a href="/estudiante/material/">
+                <figure class="material-figure">
+                    <img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}" alt="perfil-estudiante">
+                </figure>
+                <h2>Material de tareas</h2>                        
+            </a>
+        </article>
+        <!-- calendario-container -->
+        <article class="material-container">
+            <a href="/estudiante/refuerzo/libros/">
+                <h2>Refuerzo de clase</h2> 
+                <figure><img src="{{ url_for('static', filename='imagenes/iconos/formulario.svg') }}" alt="refuerzo-de-clase-img"></figure>
+            </a>
+        </article>
+    </section>
+    <section class="ca-ho-section">
+        <div class="ca-ho-botones">
+            <button class="btn-calificaciones btn-caho-active">Calificaciones</button>
+            <button class="btn-horario">Horario</button>
+        </div>
+        <div class="ca-ho-scroll">
+            <article class="tabla-centrar tabla-calificacion-centrar">
+                <div id="e-scroll-calificacion">
+                    <table class="tabla-calificacion" id="">
+                        <tr class="tabla-cabecera">
+                            <th>Calificaciones</th>
+                            {% for calificacion in calificaciones %}
+                                <th>{{ calificacion.nom_asignatura }}</th>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="calificacion">C1</td>
+                            {% for calificacion in calificaciones %}
+                                <td>{{ calificacion.C1 }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="calificacion">C2</td>
+                            {% for calificacion in calificaciones %}
+                                <td>{{ calificacion.C2 }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="calificacion">C3</td>
+                            {% for calificacion in calificaciones %}
+                                <td>{{ calificacion.C3 }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="calificacion">C4</td>
+                            {% for calificacion in calificaciones %}
+                                <td>{{ calificacion.C4 }}</td>
+                            {% endfor %}
+                        </tr>
+                        <tr>
+                            <td class="calificacion">C. Final</td>
+                            {% for calificacion in calificaciones %}
+                                <td class="nota-final">{{ calificacion["C. Final"] }}</td>
+                            {% endfor %}
+                        </tr>
+                    </table>                    
+                </div>
+            </article>
+            <article class="tabla-centrar tabla-horario-centrar">
+                <div id="e-scroll-horario">
+                    <table class="tabla-horario">
+                        <tr class="tabla-cabecera">
+                            <th>Horas</th>
+                            <th>Lunes</th>
+                            <th>Martes</th>
+                            <th>Miércoles</th>
+                            <th>Jueves</th>
+                            <th>Viernes</th>
+                        </tr>
+                        {% for hora, dias in horario_por_hora.items() %}
+                        <tr>
+                            <td>{{ hora }}</td>
+                            <td>{{ dias['Lunes'] }}</td>
+                            <td>{{ dias['Martes'] }}</td>
+                            <td>{{ dias['Miércoles'] }}</td>
+                            <td>{{ dias['Jueves'] }}</td>
+                            <td>{{ dias['Viernes'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+<script src="{{ url_for('static', filename='js/ca-ho.js') }}"></script>
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+<script src="{{ url_for('static', filename='js/barra-asistencia.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

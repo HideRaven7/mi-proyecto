@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body id="index-body">
+    <main id="index-main">
+        <section class="cara-de-jes">
+            <div class="cara-de-jes-contenedor">
+                <figure>
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="logo-jes">
+                </figure>
+                <h2>JES</h2>
+                <h3>Junior Explorer System</h3>
+            </div>
+        </section>
+        <section id="inicio-de-sesion">
+            <h1>Iniciar Sesión</h1>
+            <form action="{{ url_for('login') }}" method="POST">
+                <div id="introducir-id">
+                    <figure class="svg">
+                        <img src="{{ url_for('static', filename='imagenes/iconos/user-id-verification.svg') }}" alt="icono-id">
+                    </figure>
+                    <input type="text" id="id" placeholder="Introduzca Su ID" autofocus autocomplete="off" name="matricula-sesion">
+                </div>
+                <div id="introducir-contraseña">
+                    <figure class="svg">
+                        <img src="{{ url_for('static', filename='imagenes/iconos/security-password.svg') }}" alt="icono-contraseña">
+                    </figure>
+                    <input type="password" id="password" placeholder="Introduzca Su Contraseña" autocomplete="off" name="pass-sesion">
+                </div>
+                <input type="submit" id="iniciar-sesion" value="Iniciar Sesión">
+            </form>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/user_validator.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

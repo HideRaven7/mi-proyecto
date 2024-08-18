@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-home">
+                            <a href="/home/admin/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container">
+            <section class="section-materiales">
+                <div class="cabecera-agg-material">
+                    <div class="cabecera-materiales-flex">
+                        <div class="form-agg-material" id="cursos_cabcera">
+                            <h2 class="titulo-material">Cursos Primarios</h2>
+                        </div>
+                        
+                        <!-- <form action="#" class="form-agg-material">
+                            <select name="seccion-cursos" id="seccion-cursos">
+                                <option value="secciones" disabled selected>Secciones</option>
+                                <option value="seccion-a">A</option>
+                                <option value="seccion-b">B</option>
+                            </select>                               
+                        </form>                         -->
+                    </div>
+                </div>
+                <div class="contenedor_curso">
+                    {% for curso in cursos %}
+                    <article class="contenedor-material">                           
+                        <div class="materia-del-material">
+                            <h3>{{ curso.nombre }}</h3>
+                        </div>
+                        <div class="contenido-material">
+                            <figure class="fondo-material-estudio">
+                                <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
+                            </figure>
+                            <div class="link-material">
+                                <a href="/admin/curso/">Entrar</a>                         
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/perfil-modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu-admin.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

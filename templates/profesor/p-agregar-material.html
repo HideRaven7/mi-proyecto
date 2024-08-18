@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <main class="main-container main-curso-material">            
+            <section class="modals-container agregar-material-section">
+                <form action="/agregar_material" method="post" enctype="multipart/form-data">
+                    <fieldset class="agregar-material-fieldset">
+                        <legend>Agregar Material 1ro - A</legend>
+                        <div class="imagen-de-fondo-curso">
+                            <label for="fondo-material">Tema de fondo</label>
+                            <input type="file" id="fondo-material" name="">
+                        </div>
+                        <div class="dato-material info-material" id="titulo-material">
+                            <label for="nombre-material">Titulo del Material</label>
+                            <input type="text" id="nombre-material">
+                        </div>
+                        <div class="dato-material">
+                            <label for="recurso-de-estudio">Subir Material</label>
+                            <input type="file" id="recurso-de-estudio">
+                        </div>
+                        <div class="dato-material dato-material-textarea">
+                            <label for="con-material">Descripci&oacute;n del Material</label>
+                            <textarea name="con-material" id="con-material"></textarea>
+                        </div>
+                    </fieldset>
+                    <div class="botones-agg-material">
+                        <input type="submit" value="Enviar">
+                        <input type="reset" value="Rehacer">
+                    </div>
+                </form>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>
+    <!-- <script src="../js/perfil-modal.js"></script> -->
+    <script src="{{ url_for('static', filename='js/cerrar-modal-agg-material.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

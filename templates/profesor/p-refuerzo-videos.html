@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refuerzo de estudio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-home">
+                            <a href="/home/profesor/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container">
+            <section class="section-materiales section-p-refuerzo">
+                <div class="cabecera-agg-material cabecera-agg-refuerzo">
+                    <div class="cabecera-flex">
+                        <div class="contenedor-a-cabecera">
+                            <a href="/profesor/refuerzo/libros/">Libros</a>
+                            <a href="#" id="recurrente-a-refuerzo">Videos</a>                              
+                        </div>
+                        <h2 class="titulo-refuerzo titulo-none">Recursos de Estudio</h2>                        
+                    </div>
+
+                    <a href="/profesor/agregar/video/" class='agregar-refuerzo-a'>agregar material</a>
+                </div>
+                <article class="libros-refuerzo videos-refuerzo">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Materia</th>
+                                <th>Fuente/Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for video in videos %}
+                            <tr>
+                                <td>{{ video.titulo }}</td>
+                                <td>{{ video.id_asignatura }}</td>
+                                <td><a href="{{ video.url }}" target="_blank"><button>Link</button></a></td>
+                                <td>
+                                    <form action="/profesor/eliminar/video/{{ video.id_video }}" method="post" style="display:inline;">
+                                        <button type="submit">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                </article>
+            </section><td>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <main class="main-container main-curso-material">            
+        <section class="modals-container agregar-material-section">
+            <form action="/agregar/video/profesor/" method="post" enctype="multipart/form-data">
+                <fieldset class="agregar-material-fieldset">
+                    <legend>Agregar video de refuerzo 1ro - A</legend>
+                    <div class="dato-material info-material">
+                        <label for="nombre-material">Titulo del video</label>
+                        <input type="text" id="nombre-material" name="titulo-video">
+                    </div>
+                    <div class="dato-material dato-valor-material">
+                        <label for="valor-material">Materia</label>
+                        <input type="text" id="valor-material" name="materia-video">
+                    </div>
+                    <div class="dato-material dato-video-url">
+                        <label for="Insertar-video">Insertar</label>
+                        <input type="text" id="insertar-video" name="insertar-video">
+                    </div>
+                </fieldset>
+                <div class="botones-agg-material">
+                    <input type="submit" value="Enviar">
+                    <input type="reset" value="Rehacer">
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cerrar-modal-agg-material.js') }}"></script>
+    <!-- <script src="../js/perfil-modal.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

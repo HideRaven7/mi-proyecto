@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}"> 
+</head>
+<body>
+    <main class="main-container">
+        <section class="modals-container" onclick="history.back()">
+            <article class="modal-recurso-de-estudio-container">
+                <div class="modal-recurso-de-estudio">
+                    <iframe src="{{ url_for('static', filename='Ecuaciones1.pdf') }}" frameborder="0"></iframe>
+                </div>
+            </article>
+        </section>
+    </main>
+</body>
+</html>

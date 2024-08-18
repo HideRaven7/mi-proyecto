@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material De Estudio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}"> 
+</head>
+<body>
+    <div class="body-container">
+        <header>
+            <div class="header-container">
+                <figure class="jesIMG-container">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+                </figure>            
+                <div class="jes-titulo">
+                    <h2>JES</h2>
+                    <h3>Junior Explorers System</h3>                
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li class="nav-home">
+                            <a href="/home/profesor/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                        </li>
+                        <li class="nav-menu">
+                            <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="main-container">
+            <section class="section-materiales section-p-material-estudio">
+                <div class="cabecera-agg-refuerzo" id="cabecera-material_estudio">
+                    <div class="cabecera-flex">
+                        <a href="/profesor/agregar/material/">Agregar</a>
+                        <h1 class="titulo-refuerzo titulo-libro">Material</h1>
+                    </div>
+                </div>
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>Tarea 1</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <a href="/profesor/recurso/estudio/" >ver material</a>                            
+                        </div>
+                    </div>
+                </article>
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>Tarea 2</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}"alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <a href="/profesor/recurso/estudio/">ver material</a>                            
+                        </div>
+                    </div>
+                </article>
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>Tarea 3</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}"alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <a href="/profesor/recurso/estudio/">ver material</a>                            
+                        </div>
+                    </div>
+                </article>
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>Tarea 4</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <a href="/profesor/recurso/estudio/">ver material</a>                            
+                        </div>
+                    </div>
+                </article>
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>Tarea 5</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <a href="/profesor/recurso/estudio/">ver material</a>                            
+                        </div>
+                    </div>
+                </article>
+                <article class="contenedor-material">                           
+                    <div class="materia-del-material">
+                        <h3>Tarea 6</h3>
+                    </div>
+                    <div class="contenido-material">
+                        <figure class="fondo-material-estudio">
+                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
+                        </figure>
+                        <div class="link-material">
+                            <a href="/profesor/recurso/estudio/">ver material</a>                            
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/menu-profesor.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
