@@ -14,37 +14,37 @@
                 <div class="perfil-izquierda">
                     <h4 class="titulo-perfil">Estudiante</h4>
                     <figure class="perfil-estudiante perfil-profesor">
-                        <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-3.jpg') }}" alt="img-perfil">
+                        <img src="{{estudiante.imagen_perfil}}" alt="img-perfil">
                     </figure>
                     <div class="perfil-izquierda-abajo">
                         <h6>Grado</h6>
-                        <h4>1ro A </h4>
+                        <h4>{{estudiante.nom_curso}}</h4>
                     </div>
                 </div>
                 <div class="perfil-derecho">
                     <div class="perfil-derecha-arriba">
-                        <h2>Albiery Rodriguez</h2>
-                        <p>1-22-0500</p>
+                        <h2>{{estudiante.nombre}} {{estudiante.apellido}}</h2>
+                        <p>{{estudiante.matricula}}</p>
                     </div>
                     <div class="datos datos1">
                         <h3>Email</h3>
-                        <p>albieryrf@gmail.com</p>
+                        <p>{{estudiante.email}}</p>
                     </div>
                     <div class="datos">
                         <h3>Fecha de Nacimiento</h3>
-                        <p>07-08-2003</p>
+                        <p>{{estudiante.fecha_nacimiento}}</p>
                     </div>
                     <div class="datos">
                         <h3>Genero</h3>
-                        <p>Masculino</p>
+                        <p>{{estudiante.genero}}</p>
                     </div>
                     <div class="datos">
                         <h3>Dirección</h3>
-                        <p>Calle 16 de Agosto #01</p>
+                        <p>{{estudiante.direccion}}</p>
                     </div>
                     <div class="datos">
                         <h3>Telefono</h3>
-                        <p>849-464-9924</p>
+                        <p>{{estudiante.telefono}}</p>
                     </div>
                 </div>
             </article>

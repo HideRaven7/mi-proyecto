@@ -55,16 +55,16 @@
                         <tbody>
                             {% for video in videos %}
                             <tr>
-                                <td>{{ video.titulo }}</td>
-                                <td>{{ video.id_asignatura }}</td>
-                                <td><a href="{{ video.url }}" target="_blank"><button>Link</button></a></td>
+                                <td>{{ videos.titulo }}</td>
+                                <td>{{ video.nom_asignatura}}</td>
+                                <!-- <td><a href="{{ video.url }}" target="_blank"><button>Link</button></a></td> -->
                                 <td>
                                     <form action="/profesor/eliminar/video/{{ video.id_video }}" method="post" style="display:inline;">
                                         <button type="submit">Eliminar</button>
                                     </form>
                                 </td>
                             </tr>
-                            {% endfor %}
+                            {%endfor%}
                 </article>
             </section><td>
         </main>

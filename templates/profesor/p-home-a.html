@@ -12,7 +12,7 @@
         <header>
             <div class="header-container">
                 <figure class="jesIMG-container">
-                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" rel="icon" alt="JES-LOGO">
+                    <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
                 </figure>            
                 <div class="jes-titulo">
                     <h2>JES</h2>
@@ -32,7 +32,7 @@
         </header>
         <main class="main-container">
             <div class="seleccion-cursos-p">
-                <form action="/home" method="post" name="curso_asignado">
+                <form action="/home/profesor/" method="post" name="curso_asignado">
                     <select name="cursos" id="cursos">
                         {% for curso in cursos %}
                             <option value="{{curso['id_curso']}}" {% if curso['id_curso'] == curso_seleccionado %}selected{% endif %}>{{ curso.nombre}}</option>
@@ -43,13 +43,13 @@
             </div>
             <section class="section-top-container">
                 <article class="material-container">
-                    <a href="/profesor/refuerzo/libros?curso={{ curso_seleccionado }}">
+                    <a href="{{url_for('p_refuerzo_libros')}}">
                         <h2>Refuerzo de clase</h2> 
                         <figure><img src="{{ url_for('static', filename='imagenes/iconos/formulario.svg') }}" alt="refuerzo-de-clase-img"></figure>                     
                     </a>
                 </article>
                 <article class="material-container">
-                    <a href="/profesor/materiales?curso={{ curso_seleccionado }}">
+                    <a href="/profesor/materiales/">
                         <figure class="material-figure"><img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}" alt="perfil-estudiante"></figure>
                         <h2>Recurso De Estudio</h2>                        
                     </a>
@@ -67,125 +67,91 @@
                     <button class="btn-horario">Asistencia</button>
                 </div>
                 <div class="ca-ho-scroll">
-                    <article class="tabla-centrar tabla-calificacion-centrar">
-                        <div class="scroll-calificacion-p">
-                            <table class="tabla-calificacion tabla-asistencia">
-                                <form action="#" method="post">
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>Info</th>
-                                        <th>C1</th>
-                                        <th>C2</th>
-                                        <th>C3</th>
-                                        <th>C4</th>
-                                        <th>Calificación Final</th>
-                                        <th><button type="submit">Actualizar</button></th>
-                                    </tr>
-                                    {% for estudiante in estudiantes %}
-                                    <tr class="fila-calificacion">
-                                        <td>{{ estudiante.id_estudiante }}</td>
-                                        <td>{{ estudiante.nombre }}</td>
-                                        <td>{{ estudiante.apellido}}</td>
-                                        <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante/{{ estudiante[0] }}"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
-                                        <td><input type="text" name="calificacion_{{ estudiante.id_estudiante }}"></td>
-                                        <td><input type="text" name="calificacion_{{ estudiante.id_estudiante}}"></td>
-                                        <td><input type="text" name="calificacion_{{ estudiante.id_estudiante}}"></td>
-                                        <td><input type="text" name="calificacion_{{ estudiante.id_estudiante}}"></td>
-                                        <td><input type="text" name="calificacion_final_{{ estudiante.id_estudiante}}"></td>
-                                    </tr>
-                                    {% endfor %}
-                                </form>
-                            </table>
-                        </div>
-                    </article>
+                    <form action="#" method="post">
+                        <article class="tabla-centrar tabla-calificacion-centrar">
+                            <div class="scroll-calificacion-p">
+                                <table class="tabla-calificacion tabla-asistencia">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>Info</th>
+                                            <th>C1</th>
+                                            <th>C2</th>
+                                            <th>C3</th>
+                                            <th>C4</th>
+                                            <th>Calificación Final</th>
+                                            <th><button type="submit">Actualizar</button></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for estudiante in estudiantes %}
+                                        <tr class="fila-calificacion">
+                                            <td>{{ estudiante.id_estudiante }}</td>
+                                            <td>{{ estudiante.nombre }}</td>
+                                            <td>{{ estudiante.apellido}}</td>
+                                            <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante/{{ estudiante.id_estudiante }}"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                            <td><input type="text" name="calificacion_{{ estudiante.id_estudiante }}"></td>
+                                            <td><input type="text" name="calificacion_{{ estudiante.id_estudiante}}"></td>
+                                            <td><input type="text" name="calificacion_{{ estudiante.id_estudiante}}"></td>
+                                            <td><input type="text" name="calificacion_{{ estudiante.id_estudiante }}"></td>
+                                            <td><input type="text" name="calificacion_final_{{ estudiante.id_estudiante }}"></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </article>
+                    </form>
                 </div>
             </section>
             <section class="ca-ho-section">
                 <article class="tabla-centrar tabla-horario-centrar">
                     <div class="scroll-calificacion-p">
-                        <table class="tabla-horario tabla-asistencia">
-                            <form action="#" method="post">
-                                <tr>
-                                    <th>Matrícula</th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Info</th>
-                                    <th>Sect-Oct</th>
-                                    <th>Nov-Dic</th>
-                                    <th>Enero-Feb</th>
-                                    <th>Marz-Abril</th>
-                                    <th>May-Junio</th>
-                                    <th>Total de Asistencias</th>
-                                    <th><button type="submit">Actualizar</button></th>
-                                </tr>
-                                {% for estudiante in estudiantes %}
-                                <tr class="fila-asistencia">
-                                    <td>{{ estudiante.id_estudiante }}</td>
-                                    <td>{{ estudiante.nombre }}</td>
-                                    <td>{{ estudiante.nombre }}</td>
-                                    <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante/{{ estudiante[0] }}"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
-                                    <td><input type="text" name="asistencia_{{estudiante.id_estudiante }}"></td>
-                                    <td><input type="text" name="asistencia_{{ estudiante.id_estudiante}}"></td>
-                                    <td><input type="text" name="asistencia_{{ estudiante.id_estudiante}}"></td>
-                                    <td><input type="text" name="asistencia_{{ estudiante.id_estudiante }}"></td>
-                                    <td><input type="text" name="asistencia_{{ estudiante.id_estudiante }}"></td>
-                                    <td><input type="text" name="asistencia_total_{{ estudiante.id_estudiante }}"></td>
-                                </tr>
-                                {% endfor %}
-                            </form>
-                        </table>
+                        <form action="#" method="post">
+                            <table class="tabla-horario tabla-asistencia">
+                                <thead>
+                                    <tr>
+                                        <th>Matrícula</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Info</th>
+                                        <th>Sect-Oct</th>
+                                        <th>Nov-Dic</th>
+                                        <th>Enero-Feb</th>
+                                        <th>Marz-Abril</th>
+                                        <th>May-Junio</th>
+                                        <th>Total de Asistencias</th>
+                                        <th><button type="submit">Actualizar</button></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for estudiante in estudiantes %}
+                                    <tr class="fila-asistencia">
+                                        <td>{{ estudiante.id_estudiante }}</td>
+                                        <td>{{ estudiante.nombre }}</td>
+                                        <td>{{ estudiante.apellido }}</td>
+                                        <td class="ver-estudiante-p"><a href="/profesor/perfil/estudiante/{{ estudiante.id_estudiante }}"><figure><img src="{{ url_for('static', filename='imagenes/iconos/lupa.svg') }}" alt="ver-estudiante"></figure></a></td>
+                                        <td><input type="text" name="asistencia_{{ estudiante.id_estudiante }}"></td>
+                                        <td><input type="text" name="asistencia_{{ estudiante.id_estudiante }}"></td>
+                                        <td><input type="text" name="asistencia_{{ estudiante.id_estudiante }}"></td>
+                                        <td><input type="text" name="asistencia_{{ estudiante.id_estudiante }}"></td>
+                                        <td><input type="text" name="asistencia_{{ estudiante.id_estudiante }}"></td>
+                                        <td><input type="text" name="asistencia_total_{{ estudiante.id_estudiante }}"></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </form>
                     </div>
                 </article>
             </section>
-            <div class="modal-p-estudiantes">
-                <article class="modal-perfil">
-                    <div class="perfil-izquierda">
-                        <h4 class="titulo-perfil">Estudiante</h4>
-                        <figure class="perfil-estudiante perfil-profesor">
-                            <img src="{{ url_for('static', filename='imagenes/recursos/perfil-femenino.jpg') }}" alt="img-perfil">
-                        </figure>
-                        <div class="perfil-izquierda-abajo">
-                            <h6>Grado</h6>
-                            <h4>1ro A </h4>
-                        </div>
-                    </div>
-                    <div class="perfil-derecho">
-                        <div class="perfil-derecha-arriba">
-                            <h2>Emmy Garcia</h2>
-                            <p>1-22-0500</p>
-                        </div>
-                        <div class="datos datos1">
-                            <h3>Email</h3>
-                            <p>emmyMaria@gmail.com</p>
-                        </div>
-                        <div class="datos">
-                            <h3>Fecha de Nacimiento</h3>
-                            <p>10-05-2009</p>
-                        </div>
-                        <div class="datos">
-                            <h3>Genero</h3>
-                            <p>Femenino</p>
-                        </div>
-                        <div class="datos">
-                            <h3>Dirección</h3>
-                            <p>Calle 16 de Agosto #01</p>
-                        </div>
-                        <div class="datos">
-                            <h3>Telefono</h3>
-                            <p>809-101-0000</p>
-                        </div>
-                    </div>
-                </article>
-            </div>
         </main>
     </div>
     <script src="{{ url_for('static', filename='js/cambiar-cursos.js') }}"></script>
     <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>
     <script src="{{ url_for('static', filename='js/ca-ho.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ url_for('static', filename='js/promedio-calificacion.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/promedio-asistencia.js') }}"></script>
 </body>
 </html>

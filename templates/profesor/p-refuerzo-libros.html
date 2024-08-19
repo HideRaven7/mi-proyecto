@@ -53,9 +53,13 @@
                         {% for libro in libros %}
                         <tr>
                             <td>{{ libro.titulo }}</td>
-                            <td>{{ libro.id_asignatura }}</td>
-                            <td><a href="{{ url_for('ver_libro', libro_id=libro.id) }}"><button>Abrir</button></a></td>
-                            <td><form action="{{ url_for('eliminar_libro', libro_id=libro.id) }}" method="post"><button type="submit" class="td-eliminar-libros">Eliminar</button></form></td>
+                            <td>{{ libro.nom_asignatura }}</td>
+                            <td><a href="{{ url_for('ver_libro', id_libro=libro.id_libro) }}">Ver Libro</a></td>
+                            <td>
+                                <form action="/profesor/eliminar/libro" method="post">
+                                    <button type="submit" class="td-eliminar-libros">eliminar</button>
+                                </form>
+                            </td>
                         </tr>
                         {% endfor %}
                     </table>
