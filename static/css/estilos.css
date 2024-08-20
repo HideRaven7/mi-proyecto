@@ -1507,7 +1507,7 @@ header {
     flex-flow: wrap;
     align-items: center;
     justify-content: center;
-    /* flex-direction: column; */
+    flex-direction: column;
     color: #fff;
     border: 1px solid #ffc83d43;
 }
@@ -1608,25 +1608,22 @@ header {
 
 .dato-report {
     width: 40%;
-    border: 1px solid rgba(255, 255, 255, 0.123);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.123);
     height: 80px;
     margin: 0 10px;
     margin-top: 20px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
     /* left: 6%; */
+    gap: 5px;
 }
 
-/* .dato-report input[type='file'] {
-    display: none;
-} */
-
-/*----------------------------------------------------- */
-/* .imagen-de-fondo-curso input {
-    display: none;
-} */
+.dato-report label{
+    color: #ffc83d;
+}
 
 .imagen-de-fondo-curso {
     display: flex;

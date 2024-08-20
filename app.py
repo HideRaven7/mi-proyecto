@@ -116,11 +116,13 @@ def p_home():
     else:
         estudiantes = []
         asistencias = []
-
+        
+    cursor.execute('SELECT imagen_perfil FROM profesores WHERE id_profesor = %s', (id_profesor,))  
+    perfil = cursor.fetchone()
     cursor.close()
     connection.close()
 
-    return render_template('./profesor/p-home-a.html', cursos=cursos, curso_seleccionado=curso_seleccionado, estudiantes=estudiantes, asistencias=asistencias)
+    return render_template('./profesor/p-home-a.html', cursos=cursos, curso_seleccionado=curso_seleccionado, estudiantes=estudiantes, asistencias=asistencias, perfil=perfil)
 
 
 @app.route('/profesor/perfil/')
@@ -203,11 +205,6 @@ def eliminar_libro(libro_id):
     
     cursor = connection.cursor()
     return redirect('/profesor/refuerzo/libros/')
-
-
-# @app.route('/profesor/refuerzo/libros/')
-# def p_libro_refuerzo():
-#     return render_template('./profesor/p-libro-refuerzo.html')
 
 
 @app.route('/profesor/refuerzo/videos/')
