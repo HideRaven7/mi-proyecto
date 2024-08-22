@@ -55,18 +55,21 @@
                         <tbody>
                             {% for video in videos %}
                             <tr>
-                                <td>{{ videos.titulo }}</td>
+                                <td>{{ video.titulo }}</td>
                                 <td>{{ video.nom_asignatura}}</td>
-                                <!-- <td><a href="{{ video.url }}" target="_blank"><button>Link</button></a></td> -->
+                                <td><a href="{{ url_for('p_mostrar_videos', id_video=video.id_video) }}">Ver Video</a></td>
                                 <td>
-                                    <form action="/profesor/eliminar/video/{{ video.id_video }}" method="post" style="display:inline;">
+                                    <form action="/profesor/refuerzo/videos/" method="post" style="display:inline;">
+                                        <input type="hidden" name="id_video" value="{{ video.id_video }}">
                                         <button type="submit">Eliminar</button>
                                     </form>
                                 </td>
                             </tr>
                             {%endfor%}
+                        </tbody>
+                    </table>
                 </article>
-            </section><td>
+            </section>
         </main>
     </div>
     <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>

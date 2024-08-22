@@ -95,10 +95,14 @@ def p_home():
     """, (id_profesor,))
     cursos = cursor.fetchall()
     
-    curso_seleccionado = request.form.get('curso_seleccionado')
-
-    if not curso_seleccionado and cursos:
-        curso_seleccionado = cursos[0]['id_curso'] if isinstance(cursos[0], dict) else cursos[0][0]
+    if request.method == 'POST':
+        curso_seleccionado = request.form.get('curso_seleccionado')
+        session['curso_seleccionado'] = curso_seleccionado
+    else:
+        curso_seleccionado = session.get('curso_seleccionado')
+        if not curso_seleccionado and cursos:
+            curso_seleccionado = cursos[0]['id_curso'] if isinstance(cursos[0], dict) else cursos[0][0]
+            session['curso_seleccionado'] = curso_seleccionado
     
     cursor.execute("""
         SELECT estudiantes.id_estudiante, estudiantes.nombre, estudiantes.apellidos, estudiantes.matricula
@@ -151,7 +155,12 @@ def p_perfil():
     )
     
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    cursor.execute('SELECT * FROM `profesores` WHERE id_profesor = %s', (id_profesor,))
+    cursor.execute('''
+        SELECT profesores.*, asignaturas.nom_asignatura
+        FROM profesores
+        JOIN asignaturas ON asignaturas.id_asignatura = profesores.id_asignatura
+        WHERE profesores.id_profesor = %s
+    ''', (id_profesor,))
     perfil = cursor.fetchall()
     
     cursor.close()
@@ -161,51 +170,15 @@ def p_perfil():
 # def p_asistencia():
 #     if 'user_id' not in session or session.get('role') != 'profesor':
 #         return redirect('/')
-    
 #     id_profesor = session['user_id']
-
-#     _id_estudiante = request.form.get('id_estudiante')
-#     sect_oct = request.form.get('sect_oct')
-#     nov_dic = request.form.get('nov_dic')
-#     ene_feb = request.form.get('ene_feb')
-#     marz_abril = request.form.get('marz_abril')
-#     may_jun = request.form.get('may_jun')
-#     total_asistencias = request.form.get('total_asistencias')
-#     curso_seleccionado = request.form.get('curso_seleccionado')
-
-#     connection = pymysql.connect(
-#         host='localhost',
-#         user='root',
-#         password='',
-#         database='jes',
-#         cursorclass=pymysql.cursors.DictCursor
-#     )
-
-#     cursor = connection.cursor()
-
-#     # Insertar o actualizar asistencia
-#     cursor.execute('''
-#         INSERT INTO asistencias (id_estudiante, id_curso, Sect_Oct, Nov_Dic, Ene_Feb, Marz_Abril, May_Jun, Total_de_asistencias)
-#         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-#         ON DUPLICATE KEY UPDATE
-#             Sect_Oct = VALUES(Sect_Oct),
-#             Nov_Dic = VALUES(Nov_Dic),
-#             Ene_Feb = VALUES(Ene_Feb),
-#             Marz_Abril = VALUES(Marz_Abril),
-#             May_Jun = VALUES(May_Jun),
-#             Total_de_asistencias = VALUES(Total_de_asistencias)
-#     ''', (_id_estudiante, curso_seleccionado, sect_oct, nov_dic, ene_feb, marz_abril, may_jun, total_asistencias))
-#     connection.commit()
-    
 #     return redirect('/home/profesor/')
 
-@app.route('/profesor/refuerzo/libros/', methods=['GET'])
+@app.route('/profesor/refuerzo/libros/', methods=['GET', 'POST'])
 def p_refuerzo_libros():
     if 'user_id' not in session or session.get('role') != 'profesor':
         return redirect('/')
 
-    curso_seleccionado = request.args.get('curso_seleccionado')
-
+    curso_seleccionado = session['curso_seleccionado']
     id_profesor = session['user_id']
 
     connection = pymysql.connect(
@@ -215,17 +188,30 @@ def p_refuerzo_libros():
         database='jes'
     )
     cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    if request.method == 'POST':
+        id_libro_a_eliminar = request.form.get('id_libro')
+        if id_libro_a_eliminar:
+            cursor.execute('''
+                DELETE FROM libros
+                WHERE id_libro = %s AND id_curso = %s
+            ''', (id_libro_a_eliminar, curso_seleccionado))
+            connection.commit()
+            return redirect('/profesor/refuerzo/libros/')
+    
     sql = """
-        SELECT libros.*, asignaturas.nombre
+        SELECT libros.*, asignaturas.nom_asignatura
         FROM libros
         JOIN asignaturas ON libros.id_asignatura = asignaturas.id_asignatura
         JOIN profesores ON profesores.id_asignatura = libros.id_asignatura
-        WHERE libros.id_curso = %s and profesores.id_profesor
+        WHERE libros.id_curso = %s AND profesores.id_profesor = %s
     """
     cursor.execute(sql, (curso_seleccionado, id_profesor))
-
     libros = cursor.fetchall()
+    
     cursor.close()
+    connection.close()
+    
     return render_template('./profesor/p-refuerzo-libros.html', libros=libros)
 
 
@@ -259,54 +245,17 @@ def eliminar_libro(libro_id):
     return redirect('/profesor/refuerzo/libros/')
 
 
-@app.route('/profesor/refuerzo/videos/')
+@app.route('/profesor/refuerzo/videos/', methods=['GET', 'POST'])
 def p_refuerzo_videos():
-
     if 'user_id' not in session or session.get('role') != 'profesor':
         return redirect('/')
-    
-    curso_seleccionado = request.args.get('curso_seleccionado')
 
     id_profesor = session['user_id']
-
-    connection = pymysql.connect(
-        host='localhost',
-        user='root',
-        password='',
-        database='jes'
-    )
-    cursor = connection.cursor()
-
-    sql = ('''
-        SELECT 
-            videos.id AS id_video,
-            videos.titulo, 
-            asignaturas.nom_asignatura
-        FROM 
-            videos 
-        JOIN 
-            profesor_asignado ON profesor_asignado.id_curso = videos.id_curso 
-        JOIN 
-            profesores ON profesores.id_profesor = profesor_asignado.id_profesor 
-        JOIN 
-            asignaturas ON asignaturas.id_asignatura = videos.id_asignatura 
-        WHERE 
-            profesores.id_profesor = %s AND videos.id_curso = %s
-    ''')
-
-    cursor.execute(sql, (id_profesor, curso_seleccionado))
-
-    videos = cursor.fetchall()
-
-    cursor.close()
-    connection.close()
-
-    return render_template('./profesor/p-refuerzo-videos.html', videos=videos)
-
-@app.route('/profesor/refuerzo/videos/')
-def mostrar_videos():
-    sql = 'SELECT * FROM videos'
+    curso_seleccionado = session['curso_seleccionado']
     
+    if not curso_seleccionado:
+        return redirect('/home/profesor/')  # Redirige si no hay curso seleccionado
+
     connection = pymysql.connect(
         host='localhost',
         user='root',
@@ -314,12 +263,74 @@ def mostrar_videos():
         database='jes'
     )
     cursor = connection.cursor(pymysql.cursors.DictCursor)
-    cursor.execute(sql)
+
+    # Obtener el id_asignatura del profesor
+    cursor.execute('''
+        SELECT asignaturas.id_asignatura
+        FROM profesores
+        JOIN asignaturas ON asignaturas.id_asignatura = profesores.id_asignatura
+        WHERE profesores.id_profesor = %s
+    ''', (id_profesor,))
+    
+    asignatura = cursor.fetchone()
+    if not asignatura:
+        cursor.close()
+        connection.close()
+        return redirect('/home/profesor/')
+
+    id_asignatura = asignatura['id_asignatura']
+
+    sql = '''
+        SELECT 
+            videos.id AS id_video,
+            videos.titulo, 
+            asignaturas.nom_asignatura
+        FROM 
+            videos 
+        JOIN 
+            asignaturas ON asignaturas.id_asignatura = videos.id_asignatura
+        WHERE 
+            videos.id_curso = %s AND asignaturas.id_asignatura = %s
+    '''
+    cursor.execute(sql, (curso_seleccionado, id_asignatura))
+
     videos = cursor.fetchall()
+
+    if request.method == 'POST':
+        id_video_a_eliminar = request.form.get('id_video')
+        if id_video_a_eliminar:
+            cursor.execute('''
+                DELETE FROM videos
+                WHERE id = %s AND id_asignatura = %s
+            ''', (id_video_a_eliminar, id_asignatura))
+            connection.commit()
+            return redirect('/profesor/refuerzo/videos/')
+
+    cursor.close()
+    connection.close()
+
+    return render_template('./profesor/p-refuerzo-videos.html', videos=videos)
+
+@app.route('/profesor/video/')
+def p_mostrar_videos():
+    if 'user_id' not in session or session.get('role') != 'profesor':
+        return redirect('/')
+    
+    id_video = request.args.get('id_video')
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    cursor.execute('SELECT * FROM videos WHERE id = %s', (id_video,))
+    video = cursor.fetchone()
     cursor.close()
     connection.close()
     
-    return render_template('p-refuerzo-videos.html', videos=videos)
+    return render_template('./profesor/p-ver-videos.html', video=video)
 
 @app.route('/profesor/agregar/libros/')
 def agregar_libro():
@@ -345,39 +356,13 @@ def agregar_video():
 def p_material_estudio():
     return render_template('/profesor/p-material_estudio.html')
 
-@app.route('/profesor/agregar/material/')
-def p_agregar_material():
-    return render_template('./profesor/p-agregar-material.html')
 
 @app.route('/profesor/agregar/material', methods=['GET', 'POST'])
 def agregar_material():
-    if request.method == 'POST':
-        fondo_material = request.files['fondo-material']
-        nombre_material = request.form['nombre-material']
-        recurso_de_estudio = request.files['recurso-de-estudio']
-        descripcion_material = request.form['descripcion-material']
-
-        tiempo = datetime.now()
-        horaActual = tiempo.strftime('%Y%H%M%S')
-        nombreArchivo = horaActual + "_" + secure_filename(recurso_de_estudio.filename)
-        recurso_de_estudio.save(os.path.join(app.config['UPLOAD_FOLDER'], nombreArchivo))
-        
-        sql = "INSERT INTO material_estudio (id_curso, id_asignatura, titulo, fondo, material, descripcion) VALUES (2, %s, %s, %s, %s, %s)"
-        datos = (nombre_material, secure_filename(fondo_material.filename), nombreArchivo, descripcion_material)
-        
-        connection = pymysql.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='jes'
-        )
-        
-        cursor = connection.cursor(pymysql.cursors.DictCursor)
-        cursor.execute(sql, datos)
-        connection.commit()
-        cursor.close()
-
-        return redirect(url_for('p-refuerzo-libros'))
+    fondo_material = request.files['fondo-material']
+    nombre_material = request.form['nombre-material']
+    recurso_de_estudio = request.files['recurso-de-estudio']
+    descripcion_material = request.form['descripcion-material']
     return render_template('./profesor/p-agregar-material.html')
 
 @app.route('/profesor/recurso/estudio/')
@@ -395,14 +380,6 @@ def p_clases_enviadas():
 @app.route('/profesor/tarea/estudiante/')
 def p_tarea_e():
     return render_template('./profesor/p-tarea-e.html')
-
-@app.route('/profesor/reporte/')
-def p_report_a():
-    return render_template('./profesor/p-report-a.html')
-
-@app.route('/profesor/reporte/admin/', methods=['GET', 'POST'])
-def reporte():
-    return render_template('p-report-a.html')  
 
 
 @app.route('/profesor/perfil/estudiante/<int:id_estudiante>')

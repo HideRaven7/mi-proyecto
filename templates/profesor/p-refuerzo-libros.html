@@ -56,8 +56,9 @@
                             <td>{{ libro.nom_asignatura }}</td>
                             <td><a href="{{ url_for('ver_libro', id_libro=libro.id_libro) }}">Ver Libro</a></td>
                             <td>
-                                <form action="/profesor/eliminar/libro" method="post">
-                                    <button type="submit" class="td-eliminar-libros">eliminar</button>
+                                <form action="/profesor/refuerzo/libros/" method="post" style="display:inline;">
+                                    <input type="hidden" name="id_libro" value="{{ libro.id_libro }}">
+                                    <button type="submit">Eliminar</button>
                                 </form>
                             </td>
                         </tr>

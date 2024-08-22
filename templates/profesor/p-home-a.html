@@ -41,20 +41,23 @@
             <section class="section-top-container">
                 <article class="material-container">
                     <a href="{{ url_for('p_refuerzo_libros') }}">
-                        <h2>Refuerzo de clase</h2> 
-                        <figure><img src="{{ url_for('static', filename='imagenes/iconos/formulario.svg') }}" alt="refuerzo-de-clase-img"></figure>                     
+                        <h2>Refuerzo de clase</h2>
+                        <figure><img src="{{ url_for('static', filename='imagenes/iconos/formulario.svg') }}"
+                                alt="refuerzo-de-clase-img"></figure>
                     </a>
-                </article>                
+                </article>
                 <article class="calendario-container">
                     <a href="/profesor/perfil">
-                        <h2>{{ perfil.nombre }} {{ perfil.apellido }}</h2> 
-                        <figure><img src="{{ perfil.imagen_perfil }}" alt="recordatorio" style="border-radius: 100%;width: 50px; height: 50px;"></figure>
+                        <h2>{{ perfil.nombre }} {{ perfil.apellido }}</h2>
+                        <figure><img src="{{ perfil.imagen_perfil }}" alt="recordatorio"
+                                style="border-radius: 100%;width: 50px; height: 50px;"></figure>
                     </a>
                 </article>
                 <article class="material-container">
-                    <a href="/profesor/materiales/">
-                        <figure class="material-figure"><img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}" alt="perfil-estudiante"></figure>
-                        <h2>Recurso De Estudio</h2>                        
+                    <a href="{{ url_for('p_material_estudio', curso_id=curso_seleccionado) }}">
+                        <figure class="material-figure"><img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}"
+                                alt="perfil-estudiante"></figure>
+                        <h2>Recurso De Estudio</h2>
                     </a>
                 </article>
             </section>
@@ -110,6 +113,7 @@
                 <h2>Calificar del estudiante: {{ estudiante.nombre }} {{ estudiante.apellidos }}</h2>
                 <form action="/home/profesor/calificaciones/" method="post">
                     <input type="hidden" name="id_estudiante" value="{{ estudiante.id_estudiante }}">
+                    <input type="hidden" name="curso_seleccionado" value="{{ session.get('curso_seleccionado') }}">
                     <label for="c1">C1:</label> 
                     <input type="text" name="c1" value="{{ calificaciones[estudiante.id_estudiante][0] if estudiante.id_estudiante in calificaciones and calificaciones[estudiante.id_estudiante] else '' }}"><br>
                     <label for="c2">C2:</label> 
@@ -134,7 +138,7 @@
                     <h2>Asistencia del estudiante: {{ estudiante.nombre }} {{ estudiante.apellidos }}</h2>
                     <form action="/home/profesor/asistencia/" method="post">
                         <input type="hidden" name="id_estudiante" value="{{ estudiante.id_estudiante }}">
-                        <input type="hidden" name="curso_seleccionado" value="{{ curso_seleccionado }}">
+                        <input type="hidden" name="curso_seleccionado" value="{{ session.get('curso_seleccionado') }}">
                         {% set asistencia = asistencias.get(estudiante.id_estudiante, {}) %}
                         <label for="sect_oct">Sect. Oct:</label>
                         <input type="text" name="sect_oct" value="{{ asistencia['Sect_Oct'] if 'Sect_Oct' in asistencia else '' }}"><br>
