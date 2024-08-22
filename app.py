@@ -74,7 +74,7 @@ def login():
 # # =========================================================
 
 # APARTADO DEL PROFESORES EN PYTHON Smailyn 
-@app.route('/home/profesor/', methods=['GET','POST'])
+@app.route('/home/profesor/', methods=['GET', 'POST'])
 def p_home():
     id_profesor = session['user_id']
     
@@ -95,34 +95,45 @@ def p_home():
     """, (id_profesor,))
     cursos = cursor.fetchall()
     
-    # Manejar la selección del curso
-    curso_seleccionado = request.form.get('cursos', cursos[0]['id_curso'] if cursos else None)
-    
-    # Obtener la información de estudiantes y asistencias basados en el curso seleccionado
-    if curso_seleccionado:
-        cursor.execute("""
-            SELECT estudiantes.id_estudiante, estudiantes.nombre, estudiantes.apellidos
-            FROM estudiantes
-            WHERE estudiantes.id_curso = %s
-        """, (curso_seleccionado,))
-        estudiantes = cursor.fetchall()
+    curso_seleccionado = request.form.get('curso_seleccionado')
 
+    if not curso_seleccionado and cursos:
+        curso_seleccionado = cursos[0]['id_curso'] if isinstance(cursos[0], dict) else cursos[0][0]
+    
+    cursor.execute("""
+        SELECT estudiantes.id_estudiante, estudiantes.nombre, estudiantes.apellidos, estudiantes.matricula
+        FROM estudiantes
+        WHERE estudiantes.id_curso = %s
+    """, (curso_seleccionado,))
+    estudiantes = cursor.fetchall()
+
+    cursor.execute("""
+        SELECT a.id_estudiante, a.Sect_Oct, a.Nov_Dic, a.Ene_Feb, a.Marz_Abril, a.May_Jun, a.Total_de_asistencias
+        FROM asistencias AS a
+        WHERE a.id_curso = %s
+    """, (curso_seleccionado,))
+    asistencia = cursor.fetchall()
+
+    # Convertir la lista de asistencias en un diccionario
+    asistencias = {a['id_estudiante']: a for a in asistencia}
+
+    # Obtener las calificaciones previas de cada estudiante
+    calificaciones = {}
+    for estudiante in estudiantes:
         cursor.execute("""
-            SELECT a.id_estudiante, a.Sect_Oct, a.Nov_Dic, a.Ene_Feb, a.Marz_Abril, a.May_Jun, a.Total_de_asistencias
-            FROM asistencias AS a
-            WHERE a.id_curso = %s
-        """, (curso_seleccionado,))
-        asistencias = cursor.fetchall()
-    else:
-        estudiantes = []
-        asistencias = []
+            SELECT c1, c2, c3, c4, c_final
+            FROM calificaciones
+            WHERE id_estudiante = %s
+        """, (estudiante['id_estudiante'],))
+        calificaciones[estudiante['id_estudiante']] = cursor.fetchone()
         
-    cursor.execute('SELECT imagen_perfil FROM profesores WHERE id_profesor = %s', (id_profesor,))  
+    cursor.execute('SELECT imagen_perfil, nombre, apellido FROM profesores WHERE id_profesor = %s', (id_profesor,))  
     perfil = cursor.fetchone()
+    
     cursor.close()
     connection.close()
 
-    return render_template('./profesor/p-home-a.html', cursos=cursos, curso_seleccionado=curso_seleccionado, estudiantes=estudiantes, asistencias=asistencias, perfil=perfil)
+    return render_template('./profesor/p-home-a.html', estudiantes=estudiantes, asistencias=asistencias, calificaciones=calificaciones, perfil=perfil, curso_seleccionado=curso_seleccionado, cursos=cursos)
 
 
 @app.route('/profesor/perfil/')
@@ -144,8 +155,49 @@ def p_perfil():
     perfil = cursor.fetchall()
     
     cursor.close()
-    
     return render_template('./profesor/p-perfil.html', perfil=perfil[0])
+
+# @app.route('/home/profesor/asistencia/', methods=['POST'])
+# def p_asistencia():
+#     if 'user_id' not in session or session.get('role') != 'profesor':
+#         return redirect('/')
+    
+#     id_profesor = session['user_id']
+
+#     _id_estudiante = request.form.get('id_estudiante')
+#     sect_oct = request.form.get('sect_oct')
+#     nov_dic = request.form.get('nov_dic')
+#     ene_feb = request.form.get('ene_feb')
+#     marz_abril = request.form.get('marz_abril')
+#     may_jun = request.form.get('may_jun')
+#     total_asistencias = request.form.get('total_asistencias')
+#     curso_seleccionado = request.form.get('curso_seleccionado')
+
+#     connection = pymysql.connect(
+#         host='localhost',
+#         user='root',
+#         password='',
+#         database='jes',
+#         cursorclass=pymysql.cursors.DictCursor
+#     )
+
+#     cursor = connection.cursor()
+
+#     # Insertar o actualizar asistencia
+#     cursor.execute('''
+#         INSERT INTO asistencias (id_estudiante, id_curso, Sect_Oct, Nov_Dic, Ene_Feb, Marz_Abril, May_Jun, Total_de_asistencias)
+#         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+#         ON DUPLICATE KEY UPDATE
+#             Sect_Oct = VALUES(Sect_Oct),
+#             Nov_Dic = VALUES(Nov_Dic),
+#             Ene_Feb = VALUES(Ene_Feb),
+#             Marz_Abril = VALUES(Marz_Abril),
+#             May_Jun = VALUES(May_Jun),
+#             Total_de_asistencias = VALUES(Total_de_asistencias)
+#     ''', (_id_estudiante, curso_seleccionado, sect_oct, nov_dic, ene_feb, marz_abril, may_jun, total_asistencias))
+#     connection.commit()
+    
+#     return redirect('/home/profesor/')
 
 @app.route('/profesor/refuerzo/libros/', methods=['GET'])
 def p_refuerzo_libros():

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 15, 2024 at 05:23 AM
+-- Generation Time: Aug 22, 2024 at 05:21 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -45,7 +45,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id_admin`, `nombre_admin`, `a_apellido`, `a_email`, `a_genero`, `a_direccion`, `a_telefono`, `a_img_perfil`, `matricula`, `contraseña`) VALUES
-(1, 'Jhon Mike', 'Peña Ramos', 'jhonmip2@gmail.com', 'Masculino', 'Calle 16 de Agosto #01', '809-101-0000', 'https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'a-0002231', 'admin2330');
+(1, 'Jhon Mike', 'Peña Ramos', 'jhonmip2@gmail.com', 'Masculino', 'Calle 16 de Agosto #01', '809-101-0000', 'https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'a-0223', 'admin2330');
 
 -- --------------------------------------------------------
 
@@ -118,14 +118,14 @@ CREATE TABLE `calificaciones` (
   `C2` int NOT NULL,
   `C3` int NOT NULL,
   `C4` int NOT NULL,
-  `C. Final` int NOT NULL
+  `c_final` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 --
 -- Dumping data for table `calificaciones`
 --
 
-INSERT INTO `calificaciones` (`id_calificacion`, `id_estudiante`, `id_asignatura`, `C1`, `C2`, `C3`, `C4`, `C. Final`) VALUES
+INSERT INTO `calificaciones` (`id_calificacion`, `id_estudiante`, `id_asignatura`, `C1`, `C2`, `C3`, `C4`, `c_final`) VALUES
 (1, 2, 2403, 100, 100, 100, 100, 100),
 (2, 2, 2404, 100, 100, 90, 89, 95),
 (3, 2, 2405, 99, 91, 96, 97, 96);
@@ -363,8 +363,8 @@ INSERT INTO `profesor_asignado` (`id_profesor-asignado`, `id_profesor`, `id_curs
 CREATE TABLE `reporte_profesor` (
   `id_report` int NOT NULL,
   `id_profesor-asignado` int NOT NULL,
-  `asistencia` varchar(600) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `calificaciones` varchar(600) COLLATE utf8mb4_spanish2_ci NOT NULL
+  `asistencia` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL,
+  `calificaciones` varchar(600) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
 
 -- --------------------------------------------------------
