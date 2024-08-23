@@ -39,7 +39,11 @@
                     </div>
                 </div>
                 <article class="libros-refuerzo libros-refuerzo-iframe">
-                    <iframe src="{{ url_for('static', filename='pd_ejemplo.pdf') }}" frameborder="1"></iframe>
+                    {% if libro.subir_libro %}
+                    <iframe src="{{ url_for('download_file', filename=libro.subir_libro) }}" frameborder="0"></iframe>
+                    {% else %}
+                    <p>No hay archivo disponible.</p>
+                    {% endif %}
                 </article>
             </section>
         </main>

@@ -41,13 +41,6 @@
                         <h2 class="titulo-refuerzo titulo-none">Recursos de Estudio</h2>                        
                     </div>
                     <form action="#">
-                        <!-- <select name="materias-refuerzo" id="materias-refuerzo">
-                            <option value="">Todos</option>
-                            <option value="">Lengua Espa&ntilde;ola</option>
-                            <option value="">Matemáticas</option>
-                            <option value="">Ingles</option>
-                            <option value="">Biolog&iacute;a</option>
-                        </select> -->
                         <input type="search" name="materias-refuerzo" id="materias-refuerzo" style="float: right; margin-right: 2%; position: relative; bottom: 5px; background-color: transparent; border: 1px solid #ffc83d5e; padding: 3.5px 2px; padding-left: 10px; border-radius: 2px; color: white;">
                     </form>
                 </div>
@@ -58,7 +51,7 @@
                     </div>
                     <div class="contenido-material">
                         <figure class="fondo-material-estudio">
-                            <img src="{{libro.portada}}" alt="imagen-fondo-estudio">
+                            <img src="{{ url_for('download_file', filename=libro.portada) }}" alt="imagen-fondo-estudio">
                         </figure>
                         <div class="link-material">
                             <h3>{{libro.titulo}}</h3>

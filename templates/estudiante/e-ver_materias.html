@@ -46,12 +46,12 @@
                 <form action="/estudiante/enviar/tarea/" method="post" enctype="multipart/form-data" class="c-curso-izquierdo">
                     <input type="hidden" name="material_id" value="{{ material.id_material }}">
                     <article class="curso-descargar">
-                        <h3>Descargar Archivo</h3>
+                        <h3><span class="display-none">Descargar</span>Archivo</h3>
                         <a href="{{ url_for('static', filename=material.archivo_nombre) }}" download="{{ material.material_subido }}">Click</a>
                     </article>
                     <article class="curso-subir-tarea">
                         <div id="previsualizacion"></div>
-                        <label for="subir-tarea" id="subir-recurso-estudio">Subir Tarea</label>
+                        <label for="subir-tarea" id="subir-recurso-estudio"><span class="display-none">Subir </span>Tarea</label>
                         <input type="file" id="subir-tarea" name="subir-tarea">
                     </article>
                     <div class="botones-curso botones-curso-p">
