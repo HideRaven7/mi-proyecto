@@ -582,8 +582,10 @@ def p_refuerzo_libros():
     return render_template('./profesor/p-refuerzo-libros.html', libros=libros)
 
 
-@app.route('/ver/libro/<int:id_libro>')
-def ver_libro(id_libro):
+@app.route('/ver/libro/')
+def ver_libro():
+
+    id_libro = request.args.get('id_libro')
 
     connection = pymysql.connect(
         host='localhost',
@@ -591,13 +593,13 @@ def ver_libro(id_libro):
         password='',
         database='jes'
     )
-    
+
     cursor = connection.cursor()
-    cursor.execute('SELECT libros.id_libro,libros.titulo FROM libros WHERE id_libro=%s', (id_libro))
-    libros = cursor.fetchone()
-    connection.commit()
+    cursor.execute('SELECT libros.id_libro, libros.titulo, libros.subir_libro FROM libros WHERE id_libro = %s', (id_libro,))
+    libro = cursor.fetchone()
     cursor.close()
-    return render_template('./profesor/p-libro-refuerzo.html', libros=libros)
+    connection.close()
+    return render_template('./profesor/p-libro-refuerzo.html', libro=libro)
 
 @app.route('/eliminar/libro/<int:libro_id>', methods=['POST'])
 def eliminar_libro(libro_id):
@@ -704,7 +706,21 @@ def p_agg_libro():
     if 'user_id' not in session or session.get('role') != 'profesor':
         return redirect('/')
     
-    return render_template('./profesor/p-agregar-libro.html')
+    curso_seleccionado = session['curso_seleccionado']
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+    
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute('SELECT nombre FROM cursos WHERE id_curso = %s', (curso_seleccionado,))
+    curso = cursor.fetchone()
+
+    return render_template('./profesor/p-agregar-libro.html', curso = curso)
 
 
 @app.route('/add/libros/', methods=['POST'])

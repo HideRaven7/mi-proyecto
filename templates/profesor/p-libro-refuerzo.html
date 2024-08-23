@@ -34,12 +34,12 @@
             <section class="section-materiales">
                 <div class="cabecera-agg-refuerzo cabecera-libro">
                     <div class="cabecera-flex">
-                        <a href="{{ url_for('p_refuerzo_libros', curso_seleccionado=curso_seleccionado)}}" class="regresar-libro-video">Regresar</a>
-                        <h1 class="titulo-refuerzo titulo-libro">{{ libros.titulo }}</h1>
+                        <a href="{{ url_for('p_refuerzo_libros')}}"class="regresar-libro-video">Regresar</a>
+                        <h1 class="titulo-refuerzo titulo-libro">{{ libro.titulo }}</h1>
                     </div>
                 </div>
                 <article class="libros-refuerzo libros-refuerzo-iframe">
-                    <iframe src="{{ libros.subir_libro }}" frameborder="0"></iframe>
+                    <iframe src="{{ url_for('download_file', filename=libro.subir_libro) }}" frameborder="0"></iframe>
                 </article>
             </section>
         </main>
