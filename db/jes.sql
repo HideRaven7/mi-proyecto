@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-08-2024 a las 20:26:09
+-- Tiempo de generación: 23-08-2024 a las 22:03:57
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.13
 
@@ -104,6 +104,14 @@ CREATE TABLE `asistencias` (
   `May_Jun` char(4) COLLATE utf8_spanish_ci NOT NULL,
   `Total_de_asistencias` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `asistencias`
+--
+
+INSERT INTO `asistencias` (`id_asistencia`, `id_estudiante`, `id_curso`, `id_asignatura`, `Sect_Oct`, `Nov_Dic`, `Ene_Feb`, `Marz_Abril`, `May_Jun`, `Total_de_asistencias`) VALUES
+(1, 2, 1, 2404, '90', '90', '90', '90', '90', 90),
+(2, 2, 1, 2403, '90', '0', '0', '0', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -208,7 +216,7 @@ CREATE TABLE `estudiantes` (
 --
 
 INSERT INTO `estudiantes` (`id_estudiante`, `id_curso`, `matricula`, `nombre`, `apellidos`, `direccion`, `fecha_nacimiento`, `genero`, `email`, `telefono`, `imagen_perfil`, `contraseña`) VALUES
-(2, 1, 'e-9990', 'Albiery', 'Rodriguez', 'calle 16 de agosto #1', '2010-10-19', 'masculino', 'albieryr@gmail.com', '8095889924', 'https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=1923&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'estudiante123'),
+(2, 1, 'e-9990', 'Albiery', 'Rodriguez', 'calle 16 de agosto #1', '2010-10-19', 'masculino', 'albieryr@gmail.com', '8095889924', 'https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=1923&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'e123'),
 (3, 1, 'e-2233', 'Laura', 'Cabrera Francisco', 'calle del sol #255', '2008-05-10', 'Femenino', 'lauracab@gmail.com', '809-962-1230', 'https://lh3.googleusercontent.com/a-/ALV-UjVmN0uFLFH2SzY_MoAhbEeeOL91d_XQBSgfBjSrEDiLUxtfEMLY=s88-w88-h88-c-k-no', 'lau222');
 
 -- --------------------------------------------------------
@@ -269,6 +277,13 @@ CREATE TABLE `libros` (
   `subir_libro` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `portada` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `libros`
+--
+
+INSERT INTO `libros` (`id_libro`, `id_asignatura`, `id_curso`, `titulo`, `subir_libro`, `portada`) VALUES
+(2, 2401, 1, 'El patito juan', 'libro_20240823150934_astronaut-4k-8k-hd-wallpaper-preview.jpg', 'portada_20240823150934_astronaut-4k-8k-hd-wallpaper-preview.jpg');
 
 -- --------------------------------------------------------
 
@@ -555,7 +570,7 @@ ALTER TABLE `asignatura_curso`
 -- AUTO_INCREMENT de la tabla `asistencias`
 --
 ALTER TABLE `asistencias`
-  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `calificaciones`
@@ -597,7 +612,7 @@ ALTER TABLE `horario`
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `material_estudio`
