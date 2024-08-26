@@ -114,22 +114,26 @@
                 <form action="/home/profesor/calificaciones/" method="post">
                     <input type="hidden" name="id_estudiante" value="{{ estudiante.id_estudiante }}">
                     <input type="hidden" name="curso_seleccionado" value="{{ session.get('curso_seleccionado') }}">
-                    <label for="c1">C1:</label> 
-                    <input type="text" name="c1" value="{{ calificaciones[estudiante.id_estudiante][0] if estudiante.id_estudiante in calificaciones and calificaciones[estudiante.id_estudiante] else '' }}"><br>
-                    <label for="c2">C2:</label> 
-                    <input type="text" name="c2" value="{{ calificaciones[estudiante.id_estudiante][1] if estudiante.id_estudiante in calificaciones and calificaciones[estudiante.id_estudiante] else '' }}"><br>
-                    <label for="c3">C3:</label> 
-                    <input type="text" name="c3" value="{{ calificaciones[estudiante.id_estudiante][2] if estudiante.id_estudiante in calificaciones and calificaciones[estudiante.id_estudiante] else '' }}"><br>
-                    <label for="c4">C4:</label> 
-                    <input type="text" name="c4" value="{{ calificaciones[estudiante.id_estudiante][3] if estudiante.id_estudiante in calificaciones and calificaciones[estudiante.id_estudiante] else '' }}"><br>
-                    <label for="c_final">C Final:</label> 
-                    <input type="text" name="c_final" value="{{ calificaciones[estudiante.id_estudiante][4] if estudiante.id_estudiante in calificaciones and calificaciones[estudiante.id_estudiante] else '' }}"><br>
+                    <label for="c1">C1:</label>
+                    <input type="text" name="c1"
+                        value="{{ calificaciones.get(estudiante.id_estudiante, {}).get('c1', '') }}"><br>
+                    <label for="c2">C2:</label>
+                    <input type="text" name="c2"
+                        value="{{ calificaciones.get(estudiante.id_estudiante, {}).get('c2', '') }}"><br>
+                    <label for="c3">C3:</label>
+                    <input type="text" name="c3"
+                        value="{{ calificaciones.get(estudiante.id_estudiante, {}).get('c3', '') }}"><br>
+                    <label for="c4">C4:</label>
+                    <input type="text" name="c4"
+                        value="{{ calificaciones.get(estudiante.id_estudiante, {}).get('c4', '') }}"><br>
+                    <label for="c_final">C Final:</label>
+                    <input type="text" name="c_final"
+                        value="{{ calificaciones.get(estudiante.id_estudiante, {}).get('c_final', '') }}"><br>
                     <button type="submit">Guardar Calificaciones</button>
                 </form>
             </div>
         </div>
         {% endfor %}
-
         <!-- Modal para Asistencia -->
         {% for estudiante in estudiantes %}
             <div id="modal-asistir-{{ estudiante.id_estudiante }}" class="modal">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-08-2024 a las 22:03:57
+-- Tiempo de generación: 26-08-2024 a las 21:18:25
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.13
 
@@ -122,6 +122,7 @@ INSERT INTO `asistencias` (`id_asistencia`, `id_estudiante`, `id_curso`, `id_asi
 CREATE TABLE `calificaciones` (
   `id_calificacion` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
+  `id_curso` int(11) NOT NULL,
   `id_asignatura` int(11) NOT NULL,
   `C1` int(11) NOT NULL,
   `C2` int(11) NOT NULL,
@@ -129,15 +130,6 @@ CREATE TABLE `calificaciones` (
   `C4` int(11) NOT NULL,
   `c_final` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `calificaciones`
---
-
-INSERT INTO `calificaciones` (`id_calificacion`, `id_estudiante`, `id_asignatura`, `C1`, `C2`, `C3`, `C4`, `c_final`) VALUES
-(1, 2, 2403, 100, 100, 100, 100, 100),
-(2, 2, 2404, 100, 100, 90, 89, 95),
-(3, 2, 2405, 99, 91, 96, 97, 96);
 
 -- --------------------------------------------------------
 
@@ -283,7 +275,7 @@ CREATE TABLE `libros` (
 --
 
 INSERT INTO `libros` (`id_libro`, `id_asignatura`, `id_curso`, `titulo`, `subir_libro`, `portada`) VALUES
-(2, 2401, 1, 'El patito juan', 'libro_20240823150934_astronaut-4k-8k-hd-wallpaper-preview.jpg', 'portada_20240823150934_astronaut-4k-8k-hd-wallpaper-preview.jpg');
+(3, 2401, 1, 'EL PATO', 'libro_20240826135302_Que-es-una-base-de-datos-NoSQL.pdf', 'portada_20240826135302_astronaut-4k-8k-hd-wallpaper-preview.jpg');
 
 -- --------------------------------------------------------
 
@@ -385,6 +377,7 @@ CREATE TABLE `reporte_profesor` (
 
 CREATE TABLE `tareas_estudiante` (
   `id_tarea` int(11) NOT NULL,
+  `id_material` int(11) NOT NULL,
   `id_estudiante` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL,
   `tarea` varchar(300) COLLATE utf8mb4_spanish2_ci NOT NULL
@@ -410,7 +403,9 @@ CREATE TABLE `videos` (
 
 INSERT INTO `videos` (`id`, `titulo`, `id_curso`, `id_asignatura`, `video`) VALUES
 (2, 'Don quijote', 1, 2408, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/ir6A-Ns5Em8?si=y-I8_Uain9fbW5vZ\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>'),
-(3, 'La naturaleza', 1, 2404, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/j6LunB9d2Bo?si=JaIb5RaXyWx1I_-p\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>');
+(3, 'La naturaleza', 1, 2404, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/j6LunB9d2Bo?si=JaIb5RaXyWx1I_-p\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>'),
+(4, 'Diptongos', 1, 2401, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/mvmYv3iYsq4?si=TWrpcwbHc6ug9vLC\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>'),
+(6, 'triptongo', 1, 2401, '<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/QWAg_1m47ao?si=jHayMOs1EySjPDI4\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>');
 
 --
 -- Índices para tablas volcadas
@@ -451,7 +446,8 @@ ALTER TABLE `asistencias`
 ALTER TABLE `calificaciones`
   ADD PRIMARY KEY (`id_calificacion`),
   ADD KEY `id_estudiante` (`id_estudiante`),
-  ADD KEY `id_asignatura` (`id_asignatura`);
+  ADD KEY `id_asignatura` (`id_asignatura`),
+  ADD KEY `id_curso` (`id_curso`);
 
 --
 -- Indices de la tabla `cursos`
@@ -534,7 +530,8 @@ ALTER TABLE `reporte_profesor`
 ALTER TABLE `tareas_estudiante`
   ADD PRIMARY KEY (`id_tarea`),
   ADD KEY `id_estudiante` (`id_estudiante`),
-  ADD KEY `id_curso` (`id_curso`);
+  ADD KEY `id_curso` (`id_curso`),
+  ADD KEY `id_material` (`id_material`);
 
 --
 -- Indices de la tabla `videos`
@@ -612,7 +609,7 @@ ALTER TABLE `horario`
 -- AUTO_INCREMENT de la tabla `libros`
 --
 ALTER TABLE `libros`
-  MODIFY `id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_libro` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `material_estudio`
@@ -642,7 +639,7 @@ ALTER TABLE `tareas_estudiante`
 -- AUTO_INCREMENT de la tabla `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
@@ -668,7 +665,8 @@ ALTER TABLE `asistencias`
 --
 ALTER TABLE `calificaciones`
   ADD CONSTRAINT `calificaciones_ibfk_1` FOREIGN KEY (`id_asignatura`) REFERENCES `asignaturas` (`id_asignatura`),
-  ADD CONSTRAINT `calificaciones_ibfk_2` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`);
+  ADD CONSTRAINT `calificaciones_ibfk_2` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`),
+  ADD CONSTRAINT `calificaciones_ibfk_3` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`);
 
 --
 -- Filtros para la tabla `estudiantes`
@@ -724,7 +722,8 @@ ALTER TABLE `reporte_profesor`
 --
 ALTER TABLE `tareas_estudiante`
   ADD CONSTRAINT `tareas_estudiante_ibfk_1` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`),
-  ADD CONSTRAINT `tareas_estudiante_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`);
+  ADD CONSTRAINT `tareas_estudiante_ibfk_2` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`),
+  ADD CONSTRAINT `tareas_estudiante_ibfk_3` FOREIGN KEY (`id_material`) REFERENCES `material_estudio` (`id_material`);
 
 --
 -- Filtros para la tabla `videos`

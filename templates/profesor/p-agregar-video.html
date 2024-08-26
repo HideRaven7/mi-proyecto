@@ -10,16 +10,12 @@
 <body>
     <main class="main-container main-curso-material">            
         <section class="modals-container agregar-material-section">
-            <form action="/agregar/video/profesor/" method="post" enctype="multipart/form-data">
+            <form action="/p/agregar/video/" method="post">
                 <fieldset class="agregar-material-fieldset">
-                    <legend>Agregar video de refuerzo 1ro - A</legend>
+                    <legend>Agregar video de refuerzo {{curso.nombre}}</legend>
                     <div class="dato-material info-material">
                         <label for="nombre-material">Titulo del video</label>
                         <input type="text" id="nombre-material" name="titulo-video">
-                    </div>
-                    <div class="dato-material dato-valor-material">
-                        <label for="valor-material">Materia</label>
-                        <input type="text" id="valor-material" name="materia-video">
                     </div>
                     <div class="dato-material dato-video-url">
                         <label for="Insertar-video">Insertar</label>
@@ -35,7 +31,6 @@
     </main>
     <script src="{{ url_for('static', filename='js/menu-profesor-a.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cerrar-modal-agg-material.js') }}"></script>
-    <!-- <script src="../js/perfil-modal.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
