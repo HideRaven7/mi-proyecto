@@ -56,7 +56,8 @@
                         </figure>
                         <div class="link-material">
                             <h3>{{ material.nom_asignatura }}</h3>
-                            <a href="{{ url_for('ver_materia', titulo=material.titulo, asignatura=material.id_asignatura, curso = material.id_curso) }}">ver</a>
+                            <a href="{{ url_for('ver_materia', titulo=material.titulo, asignatura=material.id_asignatura, curso=material.id_curso, material=material.id_material) }}">ver</a>
+
                         </div>
                     </div>
                 </article>

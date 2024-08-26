@@ -279,6 +279,7 @@ def enviar_tarea():
 
     estudiante_id = session['user_id']
     material_id = request.form.get('material_id')
+    curso = request.form.get('curso')
 
     connection = pymysql.connect(
         host='localhost',
@@ -289,22 +290,6 @@ def enviar_tarea():
     
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
-    # Obtener la información del material
-    cursor.execute('''
-        SELECT id_curso
-        FROM material_estudio
-        WHERE id_material = %s
-    ''', (material_id,))
-    material = cursor.fetchone()
-
-    if material:
-        id_curso = material['id_curso']
-    else:
-        cursor.close()
-        flash('Material no encontrado')
-        return redirect('/estudiante/material/')
-
-    # Procesar el archivo subido
     if 'subir-tarea' not in request.files:
         cursor.close()
         flash('No se ha subido ningún archivo')
@@ -317,14 +302,14 @@ def enviar_tarea():
         return redirect('/estudiante/material/')
 
     if tarea:
-        archivos = secure_filename(tarea.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], archivos)
+        archivo_nombre = secure_filename(tarea.filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], archivo_nombre)
         tarea.save(file_path)
 
         cursor.execute('''
             INSERT INTO tareas_estudiante (id_material, id_estudiante, id_curso, tarea)
-            VALUES (%s, %s, %s)
-        ''', (material_id, estudiante_id, id_curso, archivos))
+            VALUES (%s, %s, %s, %s)
+        ''', (material_id, estudiante_id, curso, archivo_nombre))
 
         connection.commit()
         cursor.close()
@@ -563,7 +548,7 @@ def p_asistencia():
         return redirect('/')
 
     id_profesor = session['user_id']
-    id_estudiante = request.args.get('id_estudiante')
+    id_estudiante = request.form.get('id_estudiante')
     curso_seleccionado = session['curso_seleccionado']
 
     sect_oct = request.form.get("sect_oct")
@@ -595,7 +580,7 @@ def p_asistencia():
 
     # esto se va usar para ver si el estudiante ya esta en la tabla para asi decidir si es un insert o un update
     sql = """
-    SELECT COUNT(*) AS count FROM asistencia
+    SELECT COUNT(*) AS count FROM asistencias
     WHERE id_estudiante = %s AND id_curso = %s AND id_asignatura = %s
     """
     cursor.execute(sql, (id_estudiante, curso_seleccionado, id_asignatura))
@@ -604,9 +589,8 @@ def p_asistencia():
     if resultado['count'] > 0:
         # Si el estudiante habia tenido algun insertar previo entonces usara update
         update = """
-        UPDATE asistencia
-        SET Sect_Oct = %s, Nov_Dic = %s, Ene_Feb = %s, Marz_Abr = %s, May_Jun = %s
-        WHERE id_estudiante = %s AND id_curso = %s AND id_asignatura = %s
+        UPDATE asistencias
+        SET Sect_Oct = %s, Nov_Dic = %s, Ene_Feb = %s, Marz_Abril = %s, May_Jun = %s, Total_de_asistencias WHERE id_estudiante = %s AND id_curso = %s AND id_asignatura = %s
         """
 
         datos = (sect_oct, nov_dic, ene_feb, marz_abril, may_jun, total_asistencias, id_estudiante, curso_seleccionado, id_asignatura)
@@ -614,7 +598,7 @@ def p_asistencia():
     else:
         # Si el estudiante no habia tenido alguna inserccion entonces insertara
         insertar = """
-        INSERT INTO asistencia (id_asistencia, id_estudiante, id_curso, id_asignatura, Sect_Oct, Nov_Dic, Ene_Feb, Marz_Abr, May_Jun, Total_de_asistencias)
+        INSERT INTO asistencias (id_asistencia, id_estudiante, id_curso, id_asignatura, Sect_Oct, Nov_Dic, Ene_Feb, Marz_Abril, May_Jun, Total_de_asistencias)
         VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         datos = (id_estudiante, curso_seleccionado, id_asignatura, sect_oct, nov_dic, ene_feb, marz_abril, may_jun, total_asistencias)
