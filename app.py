@@ -236,10 +236,12 @@ def e_material():
     
     return render_template('./estudiante/e-material_estudio.html', asignaturas=asignaturas, materiales=materiales)
 
-@app.route('/estudiante/material/<titulo>')
+@app.route('/ver_materia/<titulo>/')
 def ver_materia(titulo):
     if 'user_id' not in session or session.get('role') != 'estudiante':
         return redirect('/')
+
+    estudiante_id = session['user_id']
 
     connection = pymysql.connect(
         host='localhost',
@@ -247,6 +249,9 @@ def ver_materia(titulo):
         password='',
         database='jes'
     )
+
+    curso = request.args.get('curso')
+    asignatura = request.args.get('asignatura') 
     
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
@@ -259,9 +264,13 @@ def ver_materia(titulo):
     ''', (titulo,))
     material = cursor.fetchone()
 
+    cursor.execute('SELECT profesores.nombre AS pnom, profesores.apellido AS pape FROM `profesor_asignado` JOIN profesores ON profesores.id_profesor = profesor_asignado.id_profesor JOIN estudiantes ON estudiantes.id_curso = profesor_asignado.id_curso WHERE estudiantes.id_curso = %s AND profesores.id_asignatura = %s', (curso, asignatura))
+
+    prof = cursor.fetchone()
+
     cursor.close()
 
-    return render_template('estudiante/e-ver_materias.html', material=material)
+    return render_template('estudiante/e-ver_materias.html', material=material, prof=prof)
 
 @app.route('/estudiante/enviar/tarea/', methods=['POST'])
 def enviar_tarea():
