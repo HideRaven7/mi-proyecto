@@ -611,6 +611,72 @@ def p_asistencia():
 
     return redirect('/home/profesor/')
 
+@app.route('/home/profesor/calificaciones/', methods=['POST'])
+def p_calificaciones():
+    if 'user_id' not in session or session.get('role') != 'profesor':
+        return redirect('/')
+
+    id_profesor = session['user_id']
+    id_estudiante = request.form.get('id_estudiante')
+    curso_seleccionado = session['curso_seleccionado']
+
+    c1 = request.form.get("c1")
+    c2 = request.form.get("c2")
+    c3 = request.form.get("c3")
+    c4 = request.form.get("c4")
+    c_final = request.form.get("c_final")
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute('''
+        SELECT asignaturas.id_asignatura
+        FROM profesores
+        JOIN asignaturas ON asignaturas.id_asignatura = profesores.id_asignatura
+        WHERE profesores.id_profesor = %s
+    ''', (id_profesor,))
+
+    asignatura = cursor.fetchone()
+    id_asignatura = asignatura['id_asignatura']
+
+    # Verifica si el estudiante ya está en la tabla para decidir si es un insert o un update
+    sql = """
+    SELECT COUNT(*) AS count FROM calificaciones
+    WHERE id_estudiante = %s AND id_curso = %s AND id_asignatura = %s
+    """
+    cursor.execute(sql, (id_estudiante, curso_seleccionado, id_asignatura))
+    resultado = cursor.fetchone()
+
+    if resultado['count'] > 0:
+        # Actualiza los datos si el estudiante ya existe
+        update = """
+        UPDATE calificaciones
+        SET C1 = %s, C2 = %s, C3 = %s, C4 = %s, c_final = %s
+        WHERE id_estudiante = %s AND id_curso = %s AND id_asignatura = %s
+        """
+        datos = (c1, c2, c3, c4, c_final, id_estudiante, curso_seleccionado, id_asignatura)
+        cursor.execute(update, datos)
+    else:
+        # Inserta los datos si el estudiante no existe
+        insertar = """
+        INSERT INTO calificaciones (id_calificacion, id_estudiante, id_curso, id_asignatura, C1, C2, C3, C4, c_final)
+        VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        datos = (id_estudiante, curso_seleccionado, id_asignatura, c1, c2, c3, c4, c_final)
+        cursor.execute(insertar, datos)
+
+    connection.commit()
+    connection.close()
+
+    return redirect('/home/profesor/')
+
+
 @app.route('/profesor/refuerzo/libros/', methods=['GET', 'POST'])
 def p_refuerzo_libros():
     if 'user_id' not in session or session.get('role') != 'profesor':
