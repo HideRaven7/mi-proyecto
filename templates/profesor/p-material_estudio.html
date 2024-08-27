@@ -41,7 +41,7 @@
                 {% for estudio in estudios %}
                 <article class="contenedor-material">                           
                     <div class="materia-del-material">
-                        <h3>estudio.titulo</h3>
+                        <h3>{{estudio.titulo}}</h3>
                     </div>
                     <div class="contenido-material">
                         <figure class="fondo-material-estudio">
@@ -53,71 +53,6 @@
                     </div>
                 </article>
                 {%endfor%}
-                <article class="contenedor-material">                           
-                    <div class="materia-del-material">
-                        <h3>Tarea 2</h3>
-                    </div>
-                    <div class="contenido-material">
-                        <figure class="fondo-material-estudio">
-                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}"alt="imagen-fondo-estudio">
-                        </figure>
-                        <div class="link-material">
-                            <a href="/profesor/recurso/estudio/">ver material</a>                            
-                        </div>
-                    </div>
-                </article>
-                <article class="contenedor-material">                           
-                    <div class="materia-del-material">
-                        <h3>Tarea 3</h3>
-                    </div>
-                    <div class="contenido-material">
-                        <figure class="fondo-material-estudio">
-                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}"alt="imagen-fondo-estudio">
-                        </figure>
-                        <div class="link-material">
-                            <a href="/profesor/recurso/estudio/">ver material</a>                            
-                        </div>
-                    </div>
-                </article>
-                <article class="contenedor-material">                           
-                    <div class="materia-del-material">
-                        <h3>Tarea 4</h3>
-                    </div>
-                    <div class="contenido-material">
-                        <figure class="fondo-material-estudio">
-                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
-                        </figure>
-                        <div class="link-material">
-                            <a href="/profesor/recurso/estudio/">ver material</a>                            
-                        </div>
-                    </div>
-                </article>
-                <article class="contenedor-material">                           
-                    <div class="materia-del-material">
-                        <h3>Tarea 5</h3>
-                    </div>
-                    <div class="contenido-material">
-                        <figure class="fondo-material-estudio">
-                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
-                        </figure>
-                        <div class="link-material">
-                            <a href="/profesor/recurso/estudio/">ver material</a>                            
-                        </div>
-                    </div>
-                </article>
-                <article class="contenedor-material">                           
-                    <div class="materia-del-material">
-                        <h3>Tarea 6</h3>
-                    </div>
-                    <div class="contenido-material">
-                        <figure class="fondo-material-estudio">
-                            <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
-                        </figure>
-                        <div class="link-material">
-                            <a href="/profesor/recurso/estudio/">ver material</a>                            
-                        </div>
-                    </div>
-                </article>
             </section>
         </main>
     </div>

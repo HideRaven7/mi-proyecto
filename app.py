@@ -949,7 +949,7 @@ def p_agregar():
 @app.route('/profesor/materiales/')
 def p_material_estudio():
     id_profesor = session.get('user_id')
-    curso_seleccionado = session.get('curso_seleccionado')
+    curso_seleccionado = session['curso_seleccionado']
 
     connection = pymysql.connect(
         host='localhost',
@@ -959,12 +959,10 @@ def p_material_estudio():
     )
     cursor = connection.cursor(pymysql.cursors.DictCursor)
 
-    # Fetch the asignatura
     cursor.execute('SELECT id_asignatura FROM profesores WHERE id_profesor = %s', (id_profesor,))
-    result = cursor.fetchone()
+    asignatura = cursor.fetchone()
     
-    if result:
-        id_asignatura = result['id_asignatura']
+    id_asignatura = asignatura['id_asignatura']
     
     if id_asignatura is not None:
         cursor.execute('''
@@ -985,16 +983,74 @@ def p_material_estudio():
     cursor.close()
     connection.close()
 
-    return render_template('/profesor/p-material_estudio.html', estudio=estudio)
+    return render_template('/profesor/p-material_estudio.html', estudios=estudio)
 
 
-@app.route('/profesor/agregar/material', methods=['GET', 'POST'])
+@app.route('/profesor/agregar/material/')
 def agregar_material():
-    # fondo_material = request.files['fondo-material']
-    # nombre_material = request.form['nombre-material']
-    # recurso_de_estudio = request.files['recurso-de-estudio']
-    # descripcion_material = request.form['descripcion-material']
-    return render_template('./profesor/p-agregar-material.html')
+
+    curso_seleccionado = session['curso_seleccionado']
+
+    connection = pymysql.connect(
+        host= 'localhost',
+        user= 'root',
+        password= '',
+        database= 'jes' 
+    )
+
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute('SELECT nombre FROM cursos WHERE id_curso = %s', (curso_seleccionado,))
+    curso = cursor.fetchone()
+
+    connection.close()
+    cursor.close()
+    return render_template('./profesor/p-agregar-material.html', curso=curso)
+
+@app.route('/agregar/material/', methods=['POST'])
+def p_agg_material():
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    
+    id_profesor = session.get('user_id')
+    curso_seleccionado = session.get('curso_seleccionado')
+    
+    # datos del formulario
+    fondo = request.files['tema_fondo']
+    titulo = request.form['titulo-material']
+    recurso_estudio = request.files['recurso-de-estudio']
+    descripcion = request.form['descripcion_material']
+
+    if fondo:
+        fondo_filename = secure_filename(fondo.filename)
+        fondo_path = os.path.join(app.config['UPLOAD_FOLDER'], fondo_filename)
+        fondo.save(fondo_path)
+
+    if recurso_estudio:
+        recurso_filename = secure_filename(recurso_estudio.filename)
+        recurso_path = os.path.join(app.config['UPLOAD_FOLDER'], recurso_filename)
+        recurso_estudio.save(recurso_path)
+
+    # Obtener el id_asignatura del profesor
+    cursor.execute('SELECT id_asignatura FROM profesores WHERE id_profesor = %s', (id_profesor,))
+    asignatura = cursor.fetchone()
+    id_asignatura = asignatura['id_asignatura']    
+
+    cursor.execute('''
+        INSERT INTO material_estudio (id_material, id_curso, titulo, material_subido, fondo, descripcion, id_asignatura)
+        VALUES (NULL, %s, %s, %s, %s, %s, %s)
+    ''', (curso_seleccionado, titulo, recurso_filename, fondo_filename, descripcion, id_asignatura))
+    connection.commit()
+
+    cursor.close()
+    connection.close()
+
+    return redirect('/profesor/agregar/material/')
 
 @app.route('/profesor/recurso/estudio/')
 def p_recurso_estudio():
@@ -1003,6 +1059,7 @@ def p_recurso_estudio():
 @app.route('/profesor/material/subido/')
 def p_material_de_curso_subido():
     return render_template('./profesor/p-material-de-curso-subido.html')
+
 
 @app.route('/profesor/clases/enviadas/')
 def p_clases_enviadas():
