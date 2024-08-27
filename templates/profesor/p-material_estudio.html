@@ -38,19 +38,21 @@
                         <h1 class="titulo-refuerzo titulo-libro">Material</h1>
                     </div>
                 </div>
+                {% for estudio in estudios %}
                 <article class="contenedor-material">                           
                     <div class="materia-del-material">
-                        <h3>Tarea 1</h3>
+                        <h3>estudio.titulo</h3>
                     </div>
                     <div class="contenido-material">
                         <figure class="fondo-material-estudio">
                             <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
                         </figure>
                         <div class="link-material">
-                            <a href="/profesor/recurso/estudio/" >ver material</a>                            
+                            <a href="{{ url_for('p_recurso_estudio', id_estudio = estudio.id_material)}}" >ver material</a>                            
                         </div>
                     </div>
                 </article>
+                {%endfor%}
                 <article class="contenedor-material">                           
                     <div class="materia-del-material">
                         <h3>Tarea 2</h3>

@@ -948,15 +948,52 @@ def p_agregar():
 
 @app.route('/profesor/materiales/')
 def p_material_estudio():
-    return render_template('/profesor/p-material_estudio.html')
+    id_profesor = session.get('user_id')
+    curso_seleccionado = session.get('curso_seleccionado')
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    # Fetch the asignatura
+    cursor.execute('SELECT id_asignatura FROM profesores WHERE id_profesor = %s', (id_profesor,))
+    result = cursor.fetchone()
+    
+    if result:
+        id_asignatura = result['id_asignatura']
+    
+    if id_asignatura is not None:
+        cursor.execute('''
+            SELECT *
+            FROM material_estudio
+            JOIN profesor_asignado ON profesor_asignado.id_curso = material_estudio.id_curso
+            JOIN profesores ON profesores.id_profesor = profesor_asignado.id_profesor
+            WHERE profesores.id_asignatura = material_estudio.id_asignatura
+            AND profesores.id_profesor = %s
+            AND profesor_asignado.id_curso = %s
+            AND material_estudio.id_asignatura = %s
+        ''', (id_profesor, curso_seleccionado, id_asignatura))
+
+        estudio = cursor.fetchall()
+    else:
+        estudio = []
+
+    cursor.close()
+    connection.close()
+
+    return render_template('/profesor/p-material_estudio.html', estudio=estudio)
 
 
 @app.route('/profesor/agregar/material', methods=['GET', 'POST'])
 def agregar_material():
-    fondo_material = request.files['fondo-material']
-    nombre_material = request.form['nombre-material']
-    recurso_de_estudio = request.files['recurso-de-estudio']
-    descripcion_material = request.form['descripcion-material']
+    # fondo_material = request.files['fondo-material']
+    # nombre_material = request.form['nombre-material']
+    # recurso_de_estudio = request.files['recurso-de-estudio']
+    # descripcion_material = request.form['descripcion-material']
     return render_template('./profesor/p-agregar-material.html')
 
 @app.route('/profesor/recurso/estudio/')
@@ -995,9 +1032,6 @@ def p_perfil_e(id_estudiante):
     estudiante = cursor.fetchone()
 
     return render_template('./profesor/p-perfil-e.html', estudiante=estudiante)
-
-
-
 
 if __name__ == '__main__':
     app.run(port = 3000, debug=True)
