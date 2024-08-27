@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-08-2024 a las 21:18:25
+-- Tiempo de generación: 27-08-2024 a las 23:01:55
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.13
 
@@ -111,7 +111,9 @@ CREATE TABLE `asistencias` (
 
 INSERT INTO `asistencias` (`id_asistencia`, `id_estudiante`, `id_curso`, `id_asignatura`, `Sect_Oct`, `Nov_Dic`, `Ene_Feb`, `Marz_Abril`, `May_Jun`, `Total_de_asistencias`) VALUES
 (1, 2, 1, 2404, '90', '90', '90', '90', '90', 90),
-(2, 2, 1, 2403, '90', '0', '0', '0', '0', 0);
+(2, 2, 1, 2403, '90', '0', '0', '0', '0', 0),
+(3, 2, 1, 2401, '100', '100', '100', '100', '100', 100),
+(4, 4, 7, 2401, '100', '100', '100', '100', '100', 100);
 
 -- --------------------------------------------------------
 
@@ -130,6 +132,16 @@ CREATE TABLE `calificaciones` (
   `C4` int(11) NOT NULL,
   `c_final` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `calificaciones`
+--
+
+INSERT INTO `calificaciones` (`id_calificacion`, `id_estudiante`, `id_curso`, `id_asignatura`, `C1`, `C2`, `C3`, `C4`, `c_final`) VALUES
+(4, 2, 1, 2401, 100, 100, 100, 100, 100),
+(5, 3, 1, 2401, 100, 100, 100, 100, 100),
+(6, 2, 1, 2405, 100, 100, 100, 100, 100),
+(7, 4, 7, 2401, 90, 90, 90, 90, 90);
 
 -- --------------------------------------------------------
 
@@ -209,7 +221,8 @@ CREATE TABLE `estudiantes` (
 
 INSERT INTO `estudiantes` (`id_estudiante`, `id_curso`, `matricula`, `nombre`, `apellidos`, `direccion`, `fecha_nacimiento`, `genero`, `email`, `telefono`, `imagen_perfil`, `contraseña`) VALUES
 (2, 1, 'e-9990', 'Albiery', 'Rodriguez', 'calle 16 de agosto #1', '2010-10-19', 'masculino', 'albieryr@gmail.com', '8095889924', 'https://images.unsplash.com/photo-1521119989659-a83eee488004?q=80&w=1923&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 'e123'),
-(3, 1, 'e-2233', 'Laura', 'Cabrera Francisco', 'calle del sol #255', '2008-05-10', 'Femenino', 'lauracab@gmail.com', '809-962-1230', 'https://lh3.googleusercontent.com/a-/ALV-UjVmN0uFLFH2SzY_MoAhbEeeOL91d_XQBSgfBjSrEDiLUxtfEMLY=s88-w88-h88-c-k-no', 'lau222');
+(3, 1, 'e-2233', 'Laura', 'Cabrera Francisco', 'calle del sol #255', '2008-05-10', 'Femenino', 'lauracab@gmail.com', '809-962-1230', 'https://lh3.googleusercontent.com/a-/ALV-UjVmN0uFLFH2SzY_MoAhbEeeOL91d_XQBSgfBjSrEDiLUxtfEMLY=s88-w88-h88-c-k-no', 'lau222'),
+(4, 7, 'e200', 'Juana', 'Ramirez pena', 'calle su casa detras de su casa #223', '2008-05-10', 'Femenino', 'juanitab@gmail.com', '809-889-9966', 'https://media.istockphoto.com/id/1369508766/es/foto/hermosa-mujer-latina-exitosa-sonriendo.jpg?s=1024x1024&w=is&k=20&c=u-FgO_3r1SklPbUn37R4DgJ0GQ4FeZPHr2Pj0ta_V7g=', 'juana122');
 
 -- --------------------------------------------------------
 
@@ -288,7 +301,6 @@ CREATE TABLE `material_estudio` (
   `id_curso` int(11) NOT NULL,
   `titulo` varchar(60) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `material_subido` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
-  `fondo` varchar(255) COLLATE utf8mb4_spanish2_ci NOT NULL,
   `descripcion` text COLLATE utf8mb4_spanish2_ci NOT NULL,
   `id_asignatura` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
@@ -297,8 +309,10 @@ CREATE TABLE `material_estudio` (
 -- Volcado de datos para la tabla `material_estudio`
 --
 
-INSERT INTO `material_estudio` (`id_material`, `id_curso`, `titulo`, `material_subido`, `fondo`, `descripcion`, `id_asignatura`) VALUES
-(1, 1, 'Investigacion', '', '', 'Ciencia de la Naturales es una asignatura que se enfoca en comprender los procesos y fenómenos que ocurren en nuestro entorno natural. Los estudiantes aprenden sobre la estructura y funcionamiento de los seres vivos, las sustancias químicas que componen el mundo, las fuerzas físicas y los procesos geológicos que modelan nuestro planeta.', 2404);
+INSERT INTO `material_estudio` (`id_material`, `id_curso`, `titulo`, `material_subido`, `descripcion`, `id_asignatura`) VALUES
+(1, 1, 'Investigacion', '', 'Ciencia de la Naturales es una asignatura que se enfoca en comprender los procesos y fenómenos que ocurren en nuestro entorno natural. Los estudiantes aprenden sobre la estructura y funcionamiento de los seres vivos, las sustancias químicas que componen el mundo, las fuerzas físicas y los procesos geológicos que modelan nuestro planeta.', 2404),
+(2, 1, 'Investigacion', '', 'LOSSSSSSSSSSSSSSSSSSSSSSSSSS', 2401),
+(3, 1, 'Investigacion II', 'Evaluacion_Final_BD_NoSQL_2024.pdf', 'la lengua espanola es la lengua que habla español', 2401);
 
 -- --------------------------------------------------------
 
@@ -354,7 +368,8 @@ CREATE TABLE `profesor_asignado` (
 
 INSERT INTO `profesor_asignado` (`id_profesor-asignado`, `id_profesor`, `id_curso`) VALUES
 (1, 10011, 1),
-(2, 10014, 1);
+(2, 10014, 1),
+(3, 10011, 7);
 
 -- --------------------------------------------------------
 
@@ -567,13 +582,13 @@ ALTER TABLE `asignatura_curso`
 -- AUTO_INCREMENT de la tabla `asistencias`
 --
 ALTER TABLE `asistencias`
-  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_asistencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `calificaciones`
 --
 ALTER TABLE `calificaciones`
-  MODIFY `id_calificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_calificacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `cursos`
@@ -591,7 +606,7 @@ ALTER TABLE `dias`
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_estudiante` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `hora`
@@ -615,7 +630,7 @@ ALTER TABLE `libros`
 -- AUTO_INCREMENT de la tabla `material_estudio`
 --
 ALTER TABLE `material_estudio`
-  MODIFY `id_material` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_material` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `profesores`
@@ -627,7 +642,7 @@ ALTER TABLE `profesores`
 -- AUTO_INCREMENT de la tabla `profesor_asignado`
 --
 ALTER TABLE `profesor_asignado`
-  MODIFY `id_profesor-asignado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_profesor-asignado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas_estudiante`

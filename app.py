@@ -116,12 +116,10 @@ def home_estudiante():
 
     asistencias = cursor.fetchall()
 
-    # Inicializar contadores para las asistencias y los días de clase
     total_asistencias = 0
     total_periodos = 0
     total_registros = len(asistencias)
 
-    # Sumar todas las asistencias y los días de clase
     for asistencia in asistencias:
         total_asistencias += (
             int(asistencia['Sect_Oct']) +
@@ -132,7 +130,6 @@ def home_estudiante():
         )
         total_periodos += 5 * int(asistencia['Total_de_asistencias'])
 
-    # Calcular el porcentaje de asistencia
     if total_periodos > 0:
         porcentaje_asistencia = (total_asistencias / total_periodos) * 100
     else:
@@ -1021,15 +1018,10 @@ def p_agg_material():
     curso_seleccionado = session.get('curso_seleccionado')
     
     # datos del formulario
-    fondo = request.files['tema_fondo']
     titulo = request.form['titulo-material']
     recurso_estudio = request.files['recurso-de-estudio']
     descripcion = request.form['descripcion_material']
 
-    if fondo:
-        fondo_filename = secure_filename(fondo.filename)
-        fondo_path = os.path.join(app.config['UPLOAD_FOLDER'], fondo_filename)
-        fondo.save(fondo_path)
 
     if recurso_estudio:
         recurso_filename = secure_filename(recurso_estudio.filename)
@@ -1042,15 +1034,15 @@ def p_agg_material():
     id_asignatura = asignatura['id_asignatura']    
 
     cursor.execute('''
-        INSERT INTO material_estudio (id_material, id_curso, titulo, material_subido, fondo, descripcion, id_asignatura)
-        VALUES (NULL, %s, %s, %s, %s, %s, %s)
-    ''', (curso_seleccionado, titulo, recurso_filename, fondo_filename, descripcion, id_asignatura))
+        INSERT INTO material_estudio (id_material, id_curso, titulo, material_subido, descripcion, id_asignatura)
+        VALUES (NULL, %s, %s, %s, %s, %s)
+    ''', (curso_seleccionado, titulo, recurso_filename, descripcion, id_asignatura))
     connection.commit()
 
     cursor.close()
     connection.close()
 
-    return redirect('/profesor/agregar/material/')
+    return redirect('/profesor/materiales/')
 
 @app.route('/profesor/recurso/estudio/')
 def p_recurso_estudio():
