@@ -38,7 +38,7 @@
                 <figure>
                     <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-de-fondo">
                     <figcaption>
-                        Matemáticas
+                        {{recurso.nom_asignatua}}
                     </figcaption>
                 </figure>
             </div>
@@ -47,9 +47,9 @@
                     <article class="curso-main">
                         <div class="informacion-profesor-material">
                             <figure>
-                                <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-2.jpg') }}" alt="profesor">
+                                <img src="{{ url_for('download_file', filename=profesor.imagen_perfil) }}" alt="profesor">
                             </figure>
-                            <h3><span class="profesor-material-span">YO:</span>Miguel Enrique Martinez</h3>
+                            <h3><span class="profesor-material-span">YO:</span>{{profesor.nombre}} {{profesor.apellido}}</h3>
                         </div>
                         <div class="contenedor-material-curso">
                             <div class="descripcion-material-curso">
@@ -57,7 +57,7 @@
                                     <img src="{{ url_for('static', filename='imagenes/iconos/lapiz-editar.svg') }}" alt="editar">
                                 </figure>
                                 <div class="texto-limitador">
-                                    <p id="texto-material-curso" class="editable">Las matemáticas son una ciencia que estudia los números, las formas, las estructuras y los patrones. Se utilizan para contar, medir, describir el tamaño y la forma de los objetos, y analizar cómo cambian las cosas. Las matemáticas incluyen áreas como la aritmética, el álgebra, la geometría y el cálculo, y son fundamentales para resolver problemas en ciencias, ingeniería, economía y muchos otros campos. En resumen, las matemáticas nos ayudan a entender y describir el mundo que nos rodea mediante números y símbolos.</p>                                    
+                                    <p id="texto-material-curso" class="editable">{{recurso.descripcion}}</p>                                    
                                 </div>
                             </div>
                         </div>
@@ -66,15 +66,17 @@
                 <div class="c-curso-izquierdo c-c-derecho">
                         <article class="curso-descargar">
                             <h3>Recurso <span class="display-none">De Estudio</span></h3>
-                            <a href='/profesor/material/subido/'
-                            id="material-p">Ver</a>
+                            <a href='{{url_for("p_material_de_curso_subido", material = recurso.id_material)}}'id="material-p">Ver</a>
                         </article>
                         <article class="curso-descargar">
                             <h3><span class="display-none">Clases</span> Enviadas</h3>
                             <a href="/profesor/clases/enviadas/">Click</a>
                         </article>
                         <div class="botones-curso botones-curso-p">
-                            <button value="Eliminar Contenido">Eliminar <span class="display-none">Contenido</span></button>
+                            <form action="{{url_for('eliminar_recurso_p')}}" method="post">
+                                <input type="hidden" value="{{recurso.id_material}}" name="id_material">                            
+                                <button type="submit" value="Eliminar Contenido">Eliminar <span class="display-none">Contenido</span></button>
+                            </form>
                         </div>
                     </div>
             </section>

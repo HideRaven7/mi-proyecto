@@ -1046,11 +1046,69 @@ def p_agg_material():
 
 @app.route('/profesor/recurso/estudio/')
 def p_recurso_estudio():
-    return render_template('./profesor/p-recurso_estudio.html')
+    id_profesor = session['user_id']
+    id_estudio = request.args.get('id_estudio')
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute('SELECT *, nom_asignatura FROM material_estudio JOIN asignaturas ON asignaturas.id_asignatura = material_estudio.id_asignatura  WHERE id_material = %s', (id_estudio,))
+    recurso = cursor.fetchone()
+
+    cursor.execute('SELECT nombre, apellido, imagen_perfil  FROM profesores WHERE id_profesor = %s', (id_profesor,))
+    profesor = cursor.fetchone()
+
+    connection.close()
+    cursor.close()
+    return render_template('./profesor/p-recurso_estudio.html', recurso=recurso, profesor=profesor)
+
+@app.route('/eliminar/recurso/estudio/', methods=['POST'])
+def eliminar_recurso_p():
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    id_material =  request.form.get('id_material')
+
+    cursor.execute('DELETE FROM material_estudio WHERE id_material = %s', (id_material,))
+
+    connection.commit()
+    cursor.close()
+    return redirect('/profesor/materiales/')
+
 
 @app.route('/profesor/material/subido/')
 def p_material_de_curso_subido():
-    return render_template('./profesor/p-material-de-curso-subido.html')
+
+    material = request.args.get('material')
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute('SELECT titulo, material_subido FROM material_estudio WHERE id_material = %s', (material,))
+
+    material = cursor.fetchone()
+
+    cursor.close()
+    connection.close()
+    return render_template('./profesor/p-material-de-curso-subido.html', material=material)
 
 
 @app.route('/profesor/clases/enviadas/')
