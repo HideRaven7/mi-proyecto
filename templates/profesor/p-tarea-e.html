@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{video.nom_asignatura}} | {{video.titulo}}</title>
+    <title>Documento: {{ titulo.titulo if titulo else 'Sin título' }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
 </head>
+
 <body>
     <main class="main-container">
         <section class="modals-container modal-video">
-            {{video.video | safe}}
+            {{ tarea.tarea | safe if tarea else 'No hay tarea disponible' }}
         </section>
     </main>
     <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>
 </body>
+
 </html>

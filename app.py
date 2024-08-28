@@ -1113,11 +1113,54 @@ def p_material_de_curso_subido():
 
 @app.route('/profesor/clases/enviadas/')
 def p_clases_enviadas():
-    return render_template('./profesor/p-clases-enviada.html')
+    id_estudio = request.args.get('id_estudio')
+    curso_seleccionado = session['curso_seleccionado']
+    id_profesor = session['user_id']
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute('SELECT *, estudiantes.id_estudiante, estudiantes.nombre, estudiantes.apellidos, estudiantes.matricula FROM tareas_estudiante JOIN estudiantes ON estudiantes.id_estudiante = tareas_estudiante.id_estudiante WHERE id_material = %s AND tareas_estudiante.id_curso  = %s', (id_estudio, curso_seleccionado))
+
+    estudiantes = cursor.fetchall()
+
+    cursor.execute('SELECT nombre FROM cursos WHERE id_curso = %s ', (curso_seleccionado,))
+    curso = cursor.fetchone()
+
+    cursor.execute('SELECT nom_asignatura FROM asignaturas JOIN profesores ON profesores.id_asignatura = asignaturas.id_asignatura WHERE profesores.id_profesor = %s',(id_profesor,))
+    asignatura = cursor.fetchone()
+
+    cursor.execute('SELECT titulo FROM material_estudio WHERE  id_material = %s', (id_estudio,))
+    titulo = cursor.fetchone()
+
+    return render_template('./profesor/p-clases-enviada.html', curso=curso, estudiantes=estudiantes, asignatura = asignatura, titulo=titulo)
 
 @app.route('/profesor/tarea/estudiante/')
 def p_tarea_e():
-    return render_template('./profesor/p-tarea-e.html')
+    id_material =  request.args.get('id_material')
+    id_estudiante =  request.args.get('id_estudiante')
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+
+    cursor.execute('SELECT tarea FROM tareas_estudiante WHERE id_material =  %s AND id_estudiante = %s', (id_material, id_estudiante))
+    tarea = cursor.fetchone()
+
+    cursor.execute('SELECT titulo FROM material_estudio WHERE id_material = %s',(id_material,))
+    titulo = cursor.fetchone()
+    return render_template('./profesor/p-tarea-e.html', tarea=tarea, titulo=titulo)
 
 
 @app.route('/profesor/perfil/estudiante/<int:id_estudiante>')

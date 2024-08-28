@@ -32,13 +32,13 @@
         </header>
         <main class="main-container main-curso-material">    
             <div class="materia-clases-elegir">
-                <h2>Tarea 1 - Investigaci&oacute;n</h2>
+                <h2>{{recurso.titulo}}</h2>
             </div>            
             <div class="imagen-de-fondo-curso">
                 <figure>
                     <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-de-fondo">
                     <figcaption>
-                        {{recurso.nom_asignatua}}
+                        {{recurso.nom_asignatura}}
                     </figcaption>
                 </figure>
             </div>
@@ -70,7 +70,7 @@
                         </article>
                         <article class="curso-descargar">
                             <h3><span class="display-none">Clases</span> Enviadas</h3>
-                            <a href="/profesor/clases/enviadas/">Click</a>
+                            <a href="{{url_for('p_clases_enviadas', id_estudio = recurso.id_material, titulo = recurso.titulo)}}">Click</a>
                         </article>
                         <div class="botones-curso botones-curso-p">
                             <form action="{{url_for('eliminar_recurso_p')}}" method="post">
