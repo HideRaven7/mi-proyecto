@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,60 +8,66 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
 </head>
+
 <body>
-    <main id="registro-modal" class="modal">
+    <main class="modals-container" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form action="/actualizar_estudiantes" method="post" class="form-container">
+            <form action="/admin/actualizar_estudiantes/" method="post" enctype="multipart/form-data"
+                class="form-container">
                 <fieldset>
-                    <legend>Editar Perfil de Estudiante</legend>
-                    <input type="hidden" name="id_estudiante" value="{{ estudiantes[0] }}">
-                    <input type="hidden" name="id_curso" value="{{ estudiantes[1] }}">
+                    <legend>Editar Perfil del Estudiante</legend>
+                    <input type="hidden" name="id_estudiante" value="{{ estudiante.id_estudiante }}">
                     <div class="form-group">
                         <div class="subir-imagen-registro">
                             <div class="imagen-registro-preview" id="preview">
                                 <!-- Previsualización de imagen -->
+                                <img src="{{ url_for('static', filename=estudiante.imagen_perfil) }}"
+                                    alt="Imagen de perfil" id="currentImage">
                             </div>
-                            <button type="button" class="btn-subir-imagen" id="btnSubirImagen">Subir Imagen</button>
-                            <input type="file" id="subir-imagen" accept="image/*">
+                            <label for="subir-imagen" class="btn-subir-imagen" id="btnSubirImagen">Subir Imagen</label>
+                            <input type="file" id="subir-imagen" name="imagen_perfil" accept="image/*" onchange="previewImage(event)">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
-                        <input value="{{ estudiantes[3] }}" type="text" id="nombre" name="nombre" required>
+                        <input value="{{ estudiante.nombre }}" type="text" id="nombre" name="nombre" required>
                     </div>
                     <div class="form-group">
                         <label for="apellidos">Apellidos:</label>
-                        <input value="{{ estudiantes[4] }}" type="text" id="apellidos" name="apellidos" required>
+                        <input value="{{ estudiante.apellidos }}" type="text" id="apellidos" name="apellidos" required>
                     </div>
                     <div class="form-group">
                         <label for="matricula">Matrícula:</label>
-                        <input value="{{ estudiantes[2] }}" type="text" id="matricula" name="matricula" required>
+                        <input value="{{ estudiante.matricula }}" type="text" id="matricula" name="matricula" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Direccion:</label>
+                        <input value="{{ estudiante.direccion }}" type="text" id="direccion" name="direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Genero:</label>
+                        <input value="{{ estudiante.genero }}" type="text" id="genero" name="genero" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico:</label>
-                        <input value="{{ estudiantes[8] }}" type="email" id="email" name="email" required>
+                        <input value="{{ estudiante.email }}" type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                        <input value="{{ estudiantes[6] }}" type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="direccion">Dirección:</label>
-                        <input value="{{ estudiantes[5] }}" type="text" id="direccion" name="direccion" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="telefono">Teléfono:</label>
-                        <input value="{{ estudiantes[9] }}" type="tel" id="telefono" name="telefono" required>
+                        <label for="telefono">Telefono:</label>
+                        <input value="{{ estudiante.telefono }}" type="tel" id="telefono" name="telefono" required>
                     </div>
                     <div class="form-group">
                         <label for="contrasena">Contraseña:</label>
-                        <input value="{{ estudiantes[11] }}" type="password" id="contrasena" name="contrasena" required>
+                        <input value="{{ estudiante.contraseña }}" type="text" id="contraseña" name="contraseña"
+                            required>
                     </div>
                     <button type="submit" class="btn-guardar-cambios">Guardar Cambios</button>
                 </fieldset>
             </form>
         </div>
     </main>
+    <script src="../../static/js/a-visualizar_imagenes.js"></script>
+    <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>
 </body>
 </html>

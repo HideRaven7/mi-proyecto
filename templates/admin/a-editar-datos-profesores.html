@@ -8,63 +8,69 @@
     <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
 </head>
 <body>
-    <main id="registro-modal" class="modal">
+    <main class="modals-container" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form action="/actualizar_profesores" method="post" class="form-container">
+            <form action="/admin/actualizar_profesor" method="post" enctype="multipart/form-data" class="form-container">
                 <fieldset>
                     <legend>Editar Perfil de Profesor</legend>
-                    <input type="hidden" name="id_estudiante" value="{{ profesores[0] }}">
-                    <input type="hidden" name="id_curso" value="{{ profesores[1] }}">
+                    <input type="hidden" name="id_profesor" value="{{ profesor.id_profesor }}">
                     <div class="form-group">
                         <div class="subir-imagen-registro">
                             <div class="imagen-registro-preview" id="preview">
                                 <!-- Previsualización de imagen -->
+                                <img src="{{ url_for('static', filename=profesor.imagen_perfil) }}" alt="Imagen de perfil" id="currentImage">
                             </div>
-                            <button type="button" class="btn-subir-imagen" id="btnSubirImagen">Subir Imagen</button>
-                            <input type="file" id="subir-imagen" accept="image/*">
+                            <label for="subir-imagen" class="btn-subir-imagen" id="btnSubirImagen">Subir Imagen</label>
+                            <input type="file" id="subir-imagen" name="imagen_perfil" accept="image/*" onchange="previewImage(event)">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>
-                        <input value="{{ profesores[3] }}" type="text" id="nombre" name="nombre" required>
+                        <input value="{{ profesor.nombre }}" type="text" id="nombre" name="nombre" required>
                     </div>
                     <div class="form-group">
                         <label for="apellidos">Apellidos:</label>
-                        <input value="{{ profesores[4] }}" type="text" id="apellidos" name="apellidos" required>
+                        <input value="{{ profesor.apellido }}" type="text" id="apellidos" name="apellido" required>
                     </div>
                     <div class="form-group">
                         <label for="matricula">Matrícula:</label>
-                        <input value="{{ profesores[2] }}" type="text" id="matricula" name="matricula" required>
+                        <input value="{{ profesor.matricula }}" type="text" id="matricula" name="matricula" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Asignatura">Asignatura:</label>
+                        <input value="{{ profesor.id_asignatura }}" type="text" id="asignatura" name="id_asignatura" required>
                     </div>
                     <div class="form-group">
                         <label for="direccion">Direccion:</label>
-                        <input value="{{ profesores[5] }}" type="text" id="direccion" name="direccion" required>
+                        <input value="{{ profesor.direccion }}" type="text" id="direccion" name="direccion" required>
                     </div>
                     <div class="form-group">
                         <label for="cedula">Cedula:</label>
-                        <input value="{{ profesores[6] }}" type="text" id="cedula" name="cedula" required>
+                        <input value="{{ profesor.cedula }}" type="text" id="cedula" name="cedula" required>
                     </div>
                     <div class="form-group">
                         <label for="genero">Genero:</label>
-                        <input value="{{ profesores[7] }}" type="text" id="genero" name="genero" required>
+                        <input value="{{ profesor.genero }}" type="text" id="genero" name="genero" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico:</label>
-                        <input value="{{ profesores[8] }}" type="email" id="email" name="email" required>
+                        <input value="{{ profesor.email }}" type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="telefono">Telefono:</label>
-                        <input value="{{ profesores[9] }}" type="tel" id="telefono" name="telefono" required>
+                        <input value="{{ profesor.telefono }}" type="tel" id="telefono" name="telefono" required>
                     </div>
                     <div class="form-group">
                         <label for="contrasena">Contraseña:</label>
-                        <input value="{{ profesores[10] }}" type="password" id="contraseña" name="contraseña" required>
+                        <input value="{{ profesor.contraseña }}" type="password" id="contraseña" name="contraseña" required>
                     </div>
                     <button type="submit" class="btn-guardar-cambios">Guardar Cambios</button>
                 </fieldset>
             </form>
         </div>
     </main>
+    <script src="../../static/js/a-visualizar_imagenes.js"></script>
+    <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>
 </body>
 </html>

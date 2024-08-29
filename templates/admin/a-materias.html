@@ -33,37 +33,24 @@
         <main class="main-container">
             <section class="section-materiales">
                 <div class="cabecera-agg-material">
-                    <div class="cabecera-materiales-flex">
+                    <div class="cabecera-materiales-flex form-agg-material">
                         <h2 class="titulo-material">Materias</h2>
-                        <form action="#" class="form-agg-material">                            
-                            <select name="cursos" id="cursos">
-                                <option value="cursos" disabled>Cursos</option>
-                                <option value="1ro">1ro</option>
-                                <option value="2do">2do</option>
-                                <option value="3ro">3ro</option>
-                                <option value="4to">4to</option>
-                                <option value="5to">5to</option>
-                                <option value="6to">6to</option>
-                            </select>                 
-                            <select name="ver-clases-enviada" id="ver-clases-enviada">
-                                <option value="secciones" disabled>Secciones</option>
-                                <option value="s-a">A</option>
-                                <option value="s-b">B</option>
-                            </select>
-                        </form>                        
+                    </div>
+                    <div>
+                        <a href="/admin/agregar_materias/">Agregar Materias</a>
                     </div>
                 </div>
-                {% for asignatura in asignaturas %}
+                {% for materia in asignaturas %}
                 <article class="contenedor-material">                           
                     <div class="materia-del-material">
-                        <h3>{{ asignaturas.nom_asignatura }}</h3>
+                        <h3>{{ materia.nom_asignatura }}</h3>
                     </div>
                     <div class="contenido-material">
                         <figure class="fondo-material-estudio">
                             <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
                         </figure>
                         <div class="link-material">
-                            <form action="{{ url_for('eliminar_materia', materia_id=materia[0]) }}" method="post">
+                            <form action="{{ url_for('eliminar_materia', id_asignatura=materia['id_asignatura']) }}" method="post">
                                 <button type="submit">Eliminar</button>
                             </form>                       
                         </div>

@@ -10,14 +10,14 @@
 <body>
     <main class="main-container">
         <section class="modals-container">
-            <form action="/agregar_estudiantes" method="post" enctype="multipart/form-data">
+            <form action="/admin/agregar_estudiantes" method="post" enctype="multipart/form-data">
                 <fieldset class="form-container">
                     <legend>Estudiante</legend>
                     <div class="subir-imagen-registro">
                         <div class="imagen-registro-preview" id="preview">
                         </div>
                         <label for="subir-imagen">Subir Imagen</label>
-                        <input type="file" id="subir-imagen" autocomplete="off" name='imagen_perfil'>
+                        <input type="file" id="" autocomplete="off" name='imagen_perfil'>
                     </div>
                     <div class="formulario-de-registro">
                         <label for="nombre">Nombre:</label>
@@ -43,21 +43,9 @@
                         <label for="curso">Curso:</label>
                         <select type="text" id="curso" name="id_curso">
                             <option selected disabled>Seleccionar</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                        </select>
-                    </div>
-                    <div class="formulario-de-registro">
-                        <label for="seccion">Sección:</label>
-                        <select name="seccion" id="seccion">
-                            <option selected disabled>Seleccionar</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
+                            {% for curso in cursos %}
+                            <option value="{{ curso.id_curso }}">{{ curso.nombre }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="formulario-de-registro">

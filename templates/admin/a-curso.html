@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos</title>
+    <title>Cursos: {{curso.nombre}}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
 </head>
@@ -30,56 +30,128 @@
         </div>
     </header>
     <main class="main-curso-material" id="main-curso-admin">
-        <section class="cursos-admin">
-            <article class="profesor-principal">
-                <div class="imagen-profesor-principal">
-                    <figure>
-                        <img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-2.jpg') }}" alt="profesor">
-                    </figure>
-                </div>
-                <div class="descripcion-profesor-admin">
-                    <h2>Profesor Principal</h2>
-                    <h3>Manuel Perez Maldonado</h3>
-                </div>
-            </article>
-            <article class="tabla-curso-estudiantes">
-                <div class="cabecera-tabla-estudiantes-a cabecera-curso-admin">
-                    <a href="/admin/profesores">Profesores</a>
-                    <!-- <h2 class="titulo-curso">Estudiantes</h2> -->
-                    <div class="lado-derecho-curso-cabecera">
-                        <a href="/admin/registro/estudiante">agregar</a>
-                        <a href="/admin/horario">Horario</a>
+        <section class="ca-ho-section">
+            <div class="ca-ho-botones">
+                <button class="btn-calificaciones btn-caho-active">Estudiantes</button>
+                <button class="btn-horario">Profesores</button>
+                <button><a href="{{ url_for('horario', id_curso=curso.id_curso) }}" class="h-c-a">Horario</a></button>
+            </div>
+            <div class="ca-ho-scroll">
+                <article class="tabla-centrar tabla-calificacion-centrar">
+                    <div class="cabecera-tabla-estudiantes-a cabecera-profesor-a">
+                        <form action="#">
+                            <input type="search" id="buscar-estudiantes" placeholder="Buscar estudiante..." class="agg-es-pro">
+                        </form>
                     </div>
-                </div>
-                <div class="scroll-tabla-container-admin">
-                    <table id="tabla-estudiantes-admin">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>F. Nacimiento</th>
-                            <th>Curso</th>
-                            <th>G&eacute;nero</th>
-                        </tr>
-                        {% for estudiante in estudiantes %}
-                        <tr class="fila-calificacion">
-                            <td>{{ estudiantes.id_estudiante }}</td>
-                            <td>{{ estudiantes.nombre }}</td>
-                            <td>{{ estudiantes.apellidos }}</td>
-                            <td>{{ estudiantes.fecha_nacimiento }}</td>
-                            <td>{{ estudiantes.curso }}</td>
-                            <td>{{ estudiantes.genero }}</td>
-                            <!-- <td><a href="{{ url_for('editar_estudiante', id=estudiante.id_estudiante) }}"><figure><img src="{{ url_for('static', filename='imagenes/iconos/editar.svg') }}" alt="editar-profesor"  class="btn-editar"></figure></a></td>
-                            <form action="{{ url_for('eliminar_estudiante') }}"method="POST"style="display:inline;">
-                                <input type="hidden" name="id_estudiante" value="{{ estudiantes.id_estudiante }}">
-                                <button type="submit" class="btn-eliminar">Eliminar</button>
-                            </form> -->
-                        </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            </article>
+                    <div class="tabla-admin">
+                        <table class="tabla-calificacion tabla-asistencia">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>F. Nacimiento</th>
+                                    <th>Curso</th>
+                                    <th>G&eacute;nero</th>
+                                    <th>Perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for estudiante in estudiantes %}
+                                <tr class="fila-calificacion">
+                                    <td>{{ estudiante.id_estudiante }}</td>
+                                    <td>{{ estudiante.nombre }}</td>
+                                    <td>{{ estudiante.apellidos }}</td>
+                                    <td>{{ estudiante.fecha_nacimiento }}</td>
+                                    <td>{{ curso.nombre}}</td>
+                                    <td>{{ estudiante.genero }}</td>
+                                    <td><a href="{{url_for('a_perfil_e', id_estudiante=estudiante.id_estudiante)}}">ver</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+                <!-- Tabla para visualizar los profesores asignados al curso -->
+                <article class="tabla-centrar tabla-horario-centrar">
+                    <div class="cabecera-tabla-estudiantes-a cabecera-profesor-a">
+                        <a href="#" id="agg-profesor-btn" class="agg-es-pro">Asignar</a>
+                        <form action="#">
+                            <input type="search" id="buscar-profesores" placeholder="Buscar profesor...">
+                        </form>
+                    </div>
+                    <div class="tabla-admin tadmin">
+                        <table class="tabla-horario tabla-asistencia">
+                            <thead id="thead-admin">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Asignatura</th>
+                                    <th>Acción</th>
+                                    <th>perfil</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-profesores">
+                                {% for profesor in profesores %}
+                                <tr class="fila-calificacion">
+                                    <td>{{ profesor.id_profesor }}</td>
+                                    <td>{{ profesor.nombre }}</td>
+                                    <td>{{ profesor.apellido }}</td>
+                                    <td>{{ profesor.asignatura }}</td>
+                                    <td>
+                                        <form action="/eliminar/profesor/curso/">
+                                            <input type="hidden" value="idk">
+                                            <button type="submit">Desvincular</button>
+                                        </form>
+                                    </td>
+                                        <td><a href="{{url_for('a_perfil_p', id_profesor=profesor.id_profesor)}}">ver</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </div>
         </section>
     </main>
+    <div id="mainContent">
+        <div id="agregarProfesorModal" class="modal">
+            <div class="modal-content">
+                <button class="close" aria-label="Cerrar">&times;</button>
+                <h2 id="h2-modal-agg-profesor">Agregar Profesor al Curso</h2>
+                <div class="search-bar">
+                    <div>
+                        <label>
+                            <input type="radio" name="searchOption" value="matricula" autofocus> Buscar por Matrícula
+                        </label>
+                    </div>
+                    <input type="text" id="searchInput" placeholder="Buscar...">
+                    <button id="searchBtn" class="btn">Buscar</button>
+                </div>
+                <div id="profesorList">
+                    <!-- Lista para mostrar los profesores -->
+                </div>
+                <div id="assignmentForm" style="display:none;">
+                    <h3>Asignar Profesor</h3>
+                    <form action="/admin/asignar-profesor" method="post">
+                        <input type="hidden" id="selectedProfesorId" name="id_profesor">
+                        <label for="cursosSelect">Curso:</label>
+                        <select id="cursosSelect" name="id_curso">
+                            {% for curso in cursos %}
+                            <option value="{{ curso.id_curso }}">{{ curso.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Asignar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/a-agregar-profesor-cursos.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu-admin.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ca-ho.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/busqueda.js') }}"></script>
 </body>
 </html>

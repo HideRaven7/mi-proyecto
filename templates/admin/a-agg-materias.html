@@ -12,46 +12,8 @@
         <section class="modals-container">
             <div class="agg-materias-container">
                 <h1 class="titulo-agg-materia">Agregar materia</h1>
-                <div class="materias-existente">
-                    <article class="article-material-existente">
-                        <figure class="materia-imagen">
-                            <img src="{{ url_for('static', filename='imagenes/star8k.jpg') }}" alt="imagen-materia">
-                        </figure>
-                        <h4>Matemáticas</h4>
-                    </article>
-                    <article class="article-material-existente">
-                        <figure class="materia-imagen">
-                            <img src="{{ url_for('static', filename='imagenes/star8k.jpg') }}" alt="imagen-materia">
-                        </figure>
-                        <h4>Lengua Española</h4>
-                    </article>
-                    <article class="article-material-existente">
-                        <figure class="materia-imagen">
-                            <img src="{{ url_for('static', filename='imagenes/star8k.jpg') }}" alt="imagen-materia">
-                        </figure>
-                        <h4>Francés</h4>
-                    </article>
-                    <article class="article-material-existente">
-                        <figure class="materia-imagen">
-                            <img src="{{ url_for('static', filename='imagenes/star8k.jpg') }}" alt="imagen-materia">
-                        </figure>
-                        <h4>Inglés</h4>
-                    </article>
-                    <article class="article-material-existente">
-                        <figure class="materia-imagen">
-                            <img src="{{ url_for('static', filename='imagenes/star8k.jpg') }}" alt="imagen-materia">
-                        </figure>
-                        <h4>Ciencias Sociales</h4>
-                    </article>
-                    <article class="article-material-existente">
-                        <figure class="materia-imagen">
-                            <img src="{{ url_for('static', filename='imagenes/star8k.jpg') }}" alt="imagen-materia">
-                        </figure>
-                        <h4>Ciencias Naturales</h4>
-                    </article>
-                </div>
                 <article class="agregar-material-contenido">
-                    <form action="/subir_materia" method="post" enctype="multipart/form-data">
+                    <form action="/admin/subir_materia/" method="post" enctype="multipart/form-data">
                         <div class="materia-dato dato-img-materia">
                             <div id="imagen-materia-js"></div>
                             <label for="imagen-materia">Subir imagen</label>
@@ -62,17 +24,6 @@
                                 <label for="nom-materia">Nombre de la materia</label>
                                 <input type="text" id="nom-materia" name="nom_asignatura" required>         
                             </div>
-                            <div class="materia-dato">
-                                <label for="curso-materia">Curso</label>
-                                <select name="curso-materia" id="curso-materia" required>
-                                    <option value="">1ro</option>
-                                    <option value="">2do</option>
-                                    <option value="">3ro</option>
-                                    <option value="">4to</option>
-                                    <option value="">5to</option>
-                                    <option value="">6to</option>
-                                </select>
-                            </div> 
                         </div>
                         <button type="submit">Subir Materia</button>
                     </form>

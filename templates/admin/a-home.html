@@ -20,9 +20,6 @@
                 </div>
                 <nav class="nav-container">
                     <ul>
-                        <li class="nav-perfil">
-                            <a href="/admin/perfil" class="li-perfil"><figure><img src="{{ url_for('static', filename='imagenes/recursos/perfil-masculino-3.jpg') }}" alt="perfil"></figure></a>
-                        </li>
                         <li class="nav-menu-home">
                             <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
                         </li>
@@ -38,16 +35,16 @@
                         <figure><img src="{{ url_for('static', filename='imagenes/iconos/formulario.svg') }}" alt="refuerzo-de-clase-img"></figure>                     
                     </a>
                 </article>
-                <article class="material-container">
-                    <a href="/admin/materias">
-                        <figure class="material-figure"><img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}" alt="perfil-estudiante"></figure>
-                        <h2>Materias</h2>                        
+                <article class="calendario-container">
+                    <a href="/admin/perfil/">
+                        <h2>{{ admin.nombre_admin }} {{ a_apellido }}</h2> 
+                        <figure><img src="{{ admin.a_img_perfil }}" alt="foto"></figure>
                     </a>
                 </article>
-                <article class="calendario-container">
-                    <a href="/admin/reportes">
-                        <h2>Reportes de los cursos</h2> 
-                        <figure><img src="{{ url_for('static', filename='imagenes/iconos/calendario-reloj.svg') }}" alt="recordatorio"></figure>
+                <article class="material-container">
+                    <a href="/admin/materias/">
+                        <figure class="material-figure"><img src="{{ url_for('static', filename='imagenes/iconos/capas.svg') }}" alt="perfil-estudiante"></figure>
+                        <h2>Asignaturas</h2>                        
                     </a>
                 </article>
             </section>
@@ -59,7 +56,7 @@
                 <div class="ca-ho-scroll">
                     <article class="tabla-centrar tabla-calificacion-centrar">                        
                         <div class="cabecera-tabla-estudiantes-a cabecera-profesor-a">
-                            <a href="#" class="agg-es-pro">Agregar</a>
+                            <a href="/admin/registro/estudiante/" class="agg-es-pro">Agregar</a>
                             <form action="#">
                                 <input type="search" id="buscar-estudiantes" placeholder="Buscar estudiante...">
                             </form>
@@ -74,6 +71,7 @@
                                         <th>Apellido</th>
                                         <th>F. Nacimiento</th>
                                         <th>Curso</th>
+                                        <th>Acción</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbody-estudiantes">
@@ -84,7 +82,14 @@
                                         <td>{{ estudiante.nombre }}</td>
                                         <td>{{ estudiante.apellidos }}</td>
                                         <td>{{ estudiante.fecha_nacimiento }}</td>
-                                        <td>{{ estudiante.id_curso }}</td>
+                                        <td>{{ estudiante.nombre_curso }}</td>
+                                        <td>
+                                            <form action="{{ url_for('eliminar_estudiantes') }}" method="POST" style="display:inline;">
+                                                <input type="hidden" name="id_estudiante" value="{{ estudiante.id_estudiante }}">
+                                                <button type="submit" class="btn-eliminar">Eliminar</button>
+                                            </form>
+                                                <a href="{{url_for('editar_estudiante', id_estudiante = estudiante.id_estudiante)}}" class="btn-editar">editar</a>
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -93,7 +98,7 @@
                     </article>
                     <article class="tabla-centrar tabla-horario-centrar">
                         <div class="cabecera-tabla-estudiantes-a cabecera-profesor-a">
-                            <a href="#" class="agg-es-pro">Agregar</a>
+                            <a href="/admin/registro/profesor/" id="agg-profesor-btn" class="agg-es-pro">Agregar</a>
                             <form action="#">
                                 <input type="search" id="buscar-profesores" placeholder="Buscar profesor...">
                             </form>
@@ -108,6 +113,7 @@
                                         <th>Apellido</th>
                                         <th>Ced&uacute;la</th>
                                         <th>Asignatura</th>
+                                        <th>Acción</th>
                                     </tr>                                
                                 </thead>
                                 <tbody id="tbody-profesores">
@@ -118,9 +124,16 @@
                                         <td>{{ profesor.nombre }}</td>
                                         <td>{{ profesor.apellido }}</td>
                                         <td>{{ profesor.cedula }}</td>
-                                        <td>{{ profesor.id_asignatura }}</td>
+                                        <td>{{ profesor.nom_asignatura }}</td>
+                                        <td>
+                                            <form action="{{ url_for('eliminar_profesores') }}" method="POST" style="display:inline;">
+                                                <input type="hidden" name="id_profesor" value="{{ profesor.id_profesor }}">
+                                                <button type="submit" class="btn-eliminar">Eliminar</button>
+                                            </form>
+                                            <a href="{{ url_for('editar_profesor', id_profesor=profesor.id_profesor) }}" class="btn-editar">editar</a>
+                                        </td>
                                     </tr>
-                                    {% endfor %}                                
+                                    {% endfor %}                     
                                 </tbody>
                             </table>
                         </div>

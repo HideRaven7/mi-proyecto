@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const span = document.getElementsByClassName("close")[0];
     const searchBtn = document.getElementById("searchBtn");
     const profesorList = document.getElementById("profesorList");
+    const assignmentForm = document.getElementById("assignmentForm");
+    const selectedProfesorIdInput = document.getElementById("selectedProfesorId");
+    const searchInput = document.getElementById("searchInput");
   
     // Abrir el modal
     btn.onclick = function() {
@@ -21,29 +24,31 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   
-    // Manejar búsqueda de profesores
-    searchBtn.onclick = function() {
-      // Borrar lista de profesores
-      profesorList.innerHTML = "";
-  
-      // Obtener opción de búsqueda y valor de búsqueda
-      const searchOption = document.querySelector('input[name="searchOption"]:checked').value;
-      const searchInput = document.getElementById("searchInput").value.toLowerCase();
-  
-      // Hacer una solicitud a la API o base de datos para obtener los profesores
-      fetch(`/buscarProfesores?opcion=${searchOption}&valor=${searchInput}`)
-        .then(response => response.json())
-        .then(profesores => {
-          // Mostrar resultados
-          profesores.forEach(profesor => {
-            const div = document.createElement("div");
-            div.textContent = `${profesor.nombre} - ${profesor.materia} - ${profesor.matricula}`;
-            profesorList.appendChild(div);
-          });
-        })
-        .catch(error => {
-          console.error('Error al buscar profesores:', error);
-        });
-    }
-  });
-  
+    // Buscar profesores
+    searchBtn.addEventListener('click', () => {
+        const searchOption = document.querySelector('input[name="searchOption"]:checked').value;
+        const query = searchInput.value;
+
+        fetch(`/admin/buscar-profesores?searchOption=${searchOption}&query=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                profesorList.innerHTML = '';
+                data.forEach(profesor => {
+                    const profesorDiv = document.createElement('div');
+                    profesorDiv.className = 'profesor-item';
+                    profesorDiv.innerHTML = `
+                        <p>${profesor.nombre} ${profesor.apellido}</p>
+                        <button onclick="mostrarFormularioAsignacion(${profesor.id_profesor})">Asignar</button>
+                    `;
+                    profesorList.appendChild(profesorDiv);
+                });
+            });
+    });
+
+    // Mostrar el formulario de asignación
+    window.mostrarFormularioAsignacion = (id) => {
+        assignmentForm.style.display = 'block';
+        selectedProfesorIdInput.value = id; 
+        console.log("ID Profesor asignado:", id); // Verificar el ID
+    };
+});

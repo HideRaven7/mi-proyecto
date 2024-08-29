@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-08-2024 a las 23:01:55
+-- Tiempo de generación: 29-08-2024 a las 22:27:02
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.13
 
@@ -254,7 +254,6 @@ INSERT INTO `hora` (`id_hora`, `hora`) VALUES
 
 CREATE TABLE `horario` (
   `id_horario` int(11) NOT NULL,
-  `id_estudiante` int(11) NOT NULL,
   `id_hora` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL,
   `id_asignatura` int(11) NOT NULL,
@@ -265,8 +264,13 @@ CREATE TABLE `horario` (
 -- Volcado de datos para la tabla `horario`
 --
 
-INSERT INTO `horario` (`id_horario`, `id_estudiante`, `id_hora`, `id_curso`, `id_asignatura`, `id_dias`) VALUES
-(1, 2, 1, 1, 2403, 100);
+INSERT INTO `horario` (`id_horario`, `id_hora`, `id_curso`, `id_asignatura`, `id_dias`) VALUES
+(2, 1, 1, 2403, 100),
+(3, 1, 1, 2402, 101),
+(4, 2, 1, 2401, 100),
+(5, 2, 1, 2404, 101),
+(6, 2, 1, 2406, 102),
+(7, 2, 1, 2405, 103);
 
 -- --------------------------------------------------------
 
@@ -347,8 +351,7 @@ INSERT INTO `profesores` (`id_profesor`, `id_asignatura`, `matricula`, `nombre`,
 (10015, 2405, 'p005', 'Luis Mario ', 'Martinez Gomez', '', '005-5678901-5', 'Masculino', 'luismartinez@gmail.com', '809-567-8901', 'luismario123', ''),
 (10016, 2406, 'p006', 'Macarena', 'Ramirez Torres', '', ' 006-6789012-6', 'Femenino', 'ramireztorresMac@gmail.com', '809-678-9012', 'macarena123', ''),
 (10017, 2407, 'p007', 'Javier', 'Dias Morales', '', ' 007-7890123-7', 'Masculino', 'javiDiazmorales@gmail.com', '809-789-0123', 'javier123', ''),
-(10018, 2408, 'p008', 'Maria Elena', 'Hernandez Castro', '', '008-8901234-8', 'Femenino', 'elenahernandezcastro@example.com', '809-890-1234', 'mariaElena123', ''),
-(10019, 2409, 'p009', 'Isabel', ' Navarro Vá\\azquez', '', '010-0123456-0', 'Femenino', 'isabelvazquez@example.com', '809-456-6461', 'isabel123', '');
+(10018, 2408, 'p008', 'Maria Elena', 'Hernandez Castro', '', '008-8901234-8', 'Femenino', 'elenahernandezcastro@example.com', '809-890-1234', 'mariaElena123', '');
 
 -- --------------------------------------------------------
 
@@ -357,7 +360,7 @@ INSERT INTO `profesores` (`id_profesor`, `id_asignatura`, `matricula`, `nombre`,
 --
 
 CREATE TABLE `profesor_asignado` (
-  `id_profesor-asignado` int(11) NOT NULL,
+  `id_profesor_asignado` int(11) NOT NULL,
   `id_profesor` int(11) NOT NULL,
   `id_curso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -366,7 +369,7 @@ CREATE TABLE `profesor_asignado` (
 -- Volcado de datos para la tabla `profesor_asignado`
 --
 
-INSERT INTO `profesor_asignado` (`id_profesor-asignado`, `id_profesor`, `id_curso`) VALUES
+INSERT INTO `profesor_asignado` (`id_profesor_asignado`, `id_profesor`, `id_curso`) VALUES
 (1, 10011, 1),
 (2, 10014, 1),
 (3, 10011, 7);
@@ -498,8 +501,7 @@ ALTER TABLE `horario`
   ADD KEY `id_cursos` (`id_curso`),
   ADD KEY `id_asignaturas` (`id_asignatura`),
   ADD KEY `id_dias` (`id_dias`),
-  ADD KEY `id_curso_seccion` (`id_curso`),
-  ADD KEY `id_estudiante` (`id_estudiante`);
+  ADD KEY `id_curso_seccion` (`id_curso`);
 
 --
 -- Indices de la tabla `libros`
@@ -528,7 +530,7 @@ ALTER TABLE `profesores`
 -- Indices de la tabla `profesor_asignado`
 --
 ALTER TABLE `profesor_asignado`
-  ADD PRIMARY KEY (`id_profesor-asignado`),
+  ADD PRIMARY KEY (`id_profesor_asignado`),
   ADD KEY `id_profesor` (`id_profesor`),
   ADD KEY `id_curso_seccion` (`id_curso`);
 
@@ -618,7 +620,7 @@ ALTER TABLE `hora`
 -- AUTO_INCREMENT de la tabla `horario`
 --
 ALTER TABLE `horario`
-  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_horario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `libros`
@@ -636,13 +638,13 @@ ALTER TABLE `material_estudio`
 -- AUTO_INCREMENT de la tabla `profesores`
 --
 ALTER TABLE `profesores`
-  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10020;
+  MODIFY `id_profesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10019;
 
 --
 -- AUTO_INCREMENT de la tabla `profesor_asignado`
 --
 ALTER TABLE `profesor_asignado`
-  MODIFY `id_profesor-asignado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_profesor_asignado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tareas_estudiante`
@@ -696,7 +698,6 @@ ALTER TABLE `horario`
   ADD CONSTRAINT `horario_ibfk_1` FOREIGN KEY (`id_hora`) REFERENCES `hora` (`id_hora`),
   ADD CONSTRAINT `horario_ibfk_2` FOREIGN KEY (`id_dias`) REFERENCES `dias` (`id_dias`),
   ADD CONSTRAINT `horario_ibfk_4` FOREIGN KEY (`id_asignatura`) REFERENCES `asignaturas` (`id_asignatura`),
-  ADD CONSTRAINT `horario_ibfk_6` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_estudiante`),
   ADD CONSTRAINT `horario_ibfk_7` FOREIGN KEY (`id_curso`) REFERENCES `cursos` (`id_curso`);
 
 --
@@ -730,7 +731,7 @@ ALTER TABLE `profesor_asignado`
 -- Filtros para la tabla `reporte_profesor`
 --
 ALTER TABLE `reporte_profesor`
-  ADD CONSTRAINT `reporte_profesor_ibfk_1` FOREIGN KEY (`id_profesor-asignado`) REFERENCES `profesor_asignado` (`id_profesor-asignado`);
+  ADD CONSTRAINT `reporte_profesor_ibfk_1` FOREIGN KEY (`id_profesor-asignado`) REFERENCES `profesor_asignado` (`id_profesor_asignado`);
 
 --
 -- Filtros para la tabla `tareas_estudiante`

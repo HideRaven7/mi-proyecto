@@ -3,40 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
+    <title>profesor: {{profesor.nombre}} {{profesor.apellido}}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
 </head>
 <body>
     <main class="main-container">
         <section class="modals-container">
-            <article class="modal-perfil modal-perfil-admin">
+            <article class="modal-perfil">
                 <div class="perfil-izquierda">
-                    <h4 class="titulo-perfil">Administrador</h4>
-                    <figure class="perfil-estudiante perfil-profesor" id="perfil-admin-img">
-                        <img src="{{ admin.a_img_perfil }}" alt="img-perfil">
+                    <h4 class="titulo-perfil">Profesor</h4>
+                    <figure class="perfil-estudiante perfil-profesor">
+                        <img src="{{ profesor.imagen_perfil}}" alt="img-perfil">
                     </figure>
                 </div>
                 <div class="perfil-derecho">
                     <div class="perfil-derecha-arriba">
-                        <h2>{{ admin.nombre_admin }}</h2>
-                        <p>{{ admin.matricula }}</p>
+                        <h2>{{profesor.nombre}} {{profesor.apellido}}</h2>
+                        <p>{{profesor.matricula}}</p>
                     </div>
                     <div class="datos datos1">
                         <h3>Email</h3>
-                        <p>{{ admin.a_email }}</p>
+                        <p>{{profesor.email}}</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Cedula</h3>
+                        <p>{{profesor.cedula}}</p>
+                    </div>
+                    <div class="datos">
+                        <h3>Materia</h3>
+                        <p>{{profesor.nom_asignatura}}</p>
                     </div>
                     <div class="datos">
                         <h3>Genero</h3>
-                        <p>{{ admin.a_genero }}</p>
+                        <p>{{profesor.genero}}</p>
                     </div>
                     <div class="datos">
                         <h3>Dirección</h3>
-                        <p>{{ admin.a_direccion }}</p>
+                        <p>{{profesor.direccion}}</p>
                     </div>
                     <div class="datos">
                         <h3>Telefono</h3>
-                        <p>{{ admin.a_telefono }}</p>
+                        <p>{{profesor.telefono}}</p>
                     </div>
                 </div>
             </article>

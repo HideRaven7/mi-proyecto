@@ -37,14 +37,6 @@
                         <div class="form-agg-material" id="cursos_cabcera">
                             <h2 class="titulo-material">Cursos Primarios</h2>
                         </div>
-                        
-                        <!-- <form action="#" class="form-agg-material">
-                            <select name="seccion-cursos" id="seccion-cursos">
-                                <option value="secciones" disabled selected>Secciones</option>
-                                <option value="seccion-a">A</option>
-                                <option value="seccion-b">B</option>
-                            </select>                               
-                        </form>                         -->
                     </div>
                 </div>
                 <div class="contenedor_curso">
@@ -58,7 +50,7 @@
                                 <img src="{{ url_for('static', filename='imagenes/recursos/Auditorio-img-fondo.jpg') }}" alt="imagen-fondo-estudio">
                             </figure>
                             <div class="link-material">
-                                <a href="/admin/curso/">Entrar</a>                         
+                                <a href="{{ url_for('mostrar_estudiantes', id_curso=curso.id_curso) }}">Entrar</a>                   
                             </div>
                         </div>
                     </article>

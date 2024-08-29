@@ -10,15 +10,14 @@
 <body>
     <main class="main-container">
         <section class="modals-container">
-            <form action="/agregar_profesores" method="post" enctype="multipart/form-data">
+            <form action="/admin/agregar_profesores" method="post" enctype="multipart/form-data">
                 <fieldset class="form-container">
                     <legend>Profesor</legend>          
                     <div class="subir-imagen-registro">
                         <div class="imagen-registro-preview" id="preview">
-                           
                         </div>
-                        <label for="imagen_perfil">Subir Imagen</label>
-                        <input type="file" id="subir-imagen" name="imagen_perfil" autocomplete="off">
+                        <label for="subir-imagen">Subir Imagen</label>
+                        <input type="file" id="subir-imagen" autocomplete="off" name='imagen_perfil'>
                     </div>
                     <div class="formulario-de-registro">
                         <label for="nombre">Nombre:</label>
@@ -42,7 +41,11 @@
                     </div>                    
                     <div class="formulario-de-registro formulario-asignatura">
                         <label for="asignatura">Asignatura:</label>
-                        <input type="text" id="asignatura" name="id_asignatura" autocomplete="off" required>
+                        <select name="id_asignatura" id="asignatura">
+                            {% for asignatura in asignaturas %}
+                            <option value="{{ asignatura.id_asignatura }}">{{ asignatura.nom_asignatura }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="formulario-de-registro">
                         <label for="email">Correo Electrónico:</label>
@@ -51,6 +54,10 @@
                     <div class="formulario-de-registro">
                         <label for="telefono">Teléfono:</label>
                         <input type="tel" id="telefono" name="telefono">
+                    </div>
+                    <div class="formulario-de-registro">
+                        <label for="direccion">Dirección:</label>
+                        <input type="text" id="direccion" name="direccion">
                     </div>
                     <div class="formulario-de-registro">
                         <label for="matricula">Matricula:</label>

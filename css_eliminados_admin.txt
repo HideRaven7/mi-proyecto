@@ -1,0 +1,292 @@
+/* 
+.cabecera-curso-admin {
+    justify-content: space-between;
+}
+
+.cabecera-curso-admin a{
+    color: white;
+    text-decoration: none;
+    border: 1px solid #ffc83d5b;
+    padding: 5px 20px;
+    margin: 0 10px;
+    border-radius: 4px;
+} 
+
+.cabecera-curso-admin a:hover {
+    background-color: #ffc83d5b;
+    transition: all 0.6s ease;
+} */
+
+
+html: (a-estudiante-1a)
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <figure class="jesIMG-container">
+                <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+            </figure>            
+            <div class="jes-titulo">
+                <h2>JES</h2>
+                <h3>Junior Explorers System</h3>     
+            </div>
+            <nav class="nav-container">
+                <ul>
+                    <li class="nav-home">
+                        <a href="/home/admin/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                    </li>
+                    <li class="nav-menu">
+                        <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-container main-curso-material">
+        <section class="cursos-admin">
+            <h2 class="identificador-curso">1ro A</h2>
+            <article class="tabla-curso-estudiantes" id="a-profesor-article">
+                <div class="cabecera-tabla-estudiantes-a cabecera-curso-admin">
+                        <a href="/admin/cursos">Ir atr&aacute;s</a>
+                        <h2 class="identificador-apartado-curso">Estudiantes</h2>
+                        <a href="/admin/registro-E">Agregar</a>
+                </div>
+                <table class="tabla-asistencia tabla-admin-e">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>F. Nacimiento</th>
+                        <th>Curso</th>
+                    </tr>
+                    {% for estudiante in estudiantes %}
+                    <tr class="fila-calificacion">
+                        <td>{{ estudiante.id_estudiante }}</td>
+                        <td>{{ estudiante.nombre }}</td>
+                        <td>{{ estudiante.apellido }}</td>
+                        <td>{{ estudiante.fecha_nacimiento }}</td>
+                        <td>{{ estudiante.id_curso }}</td>
+                        <td><a href="{{ url_for('editar_estudiante', id_estudiante=estudiante.id_estudiante) }}"><figure><img src="{{ url_for('static', filename='imagenes/iconos/editar.svg') }}" alt="editar-profesor" class="btn-editar"></figure></a></td>
+                        <form action="{{ url_for('eliminar_estudiante') }}" method="POST"style="display:inline;">
+                            <input type="hidden" name="id_profesor" value="{{ profesores.id_profesor }}">
+                            <button type="submit" class="btn-eliminar">Eliminar</button>
+                        </form>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </article>
+        </section>
+    </main>
+    <script src="{{ url_for('static', filename='js/modificar-datos-modal.js') }}"></script>
+</body>
+</html> {
+    @app.route('/admin/estudiantes/')
+def a_cursos_estudiantes():
+    sql = 'SELECT id_estudiante, nombre, apellido, fecha_nacimiento, id_curso FROM estudiantes'
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+    
+    cursor = connection.cursor(pymysql.cursors.DictCursor)
+    cursor.execute(sql)
+
+    estudiantes = cursor.fetchall()
+    cursor.close()
+    return render_template('./admin/a-estudiante-1_a.html', estudiantes=estudiantes)
+}=====================================================================================
+
+html(profesor-1_a) {
+    <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <figure class="jesIMG-container">
+                <img src="{{ url_for('static', filename='imagenes/recursos/logo-jes.png') }}" alt="JES-LOGO">
+            </figure>            
+            <div class="jes-titulo">
+                <h2>JES</h2>
+                <h3>Junior Explorers System</h3>                
+            </div>
+            <nav class="nav-container">
+                <ul>
+                    <li class="nav-home">
+                        <a href="/home/admin/" class="li-home"><figure><img src="{{ url_for('static', filename='imagenes/iconos/house-blank.svg') }}" alt="perfil"></figure></a>
+                    </li>
+                    <li class="nav-menu">
+                        <a href="#" class="menu"><figure><img src="{{ url_for('static', filename='imagenes/iconos/menu.svg') }}" alt="menu"></figure></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main id="main-profesores-admin">
+        <section class="cursos-admin">
+            <h2 class="identificador-curso"></h2>
+            <article class="tabla-curso-estudiantes" id="a-profesor-article">
+                <div class="cabecera-tabla-estudiantes-a cabecera-curso-admin">
+                    <a href="/admin/cursos/">Ir atr&aacute;s</a>
+                    <h2 class="identificador-apartado-curso">Profesores</h2>
+                    <a href="#" id="agg-profesor-btn" class="btn">Agregar</a>
+                </div>
+                <div class="scroll-tabla-container-admin">
+                    <div class="contenedor_curso">
+                        {% for profesor in profesores %}
+                        <article class="contenedor-material">                           
+                            <div class="materia-del-material">
+                                <h3>{{ profesor.nombre }} {{ profesor.apellido }}</h3>
+                            </div>
+                            <div class="contenido-material">
+                                <figure class="fondo-material-estudio">
+                                    <img src="{{ url_for('static', filename='{{ profesor.ping }}') }}" alt="imagen-fondo-estudio">
+                                </figure>
+                                <div class="link-material">
+                                    <a href="{{ url_for('editar_profesor', id_profesor=profesor.id_profesor) }}">Editar</a>                   
+                                </div>
+                                <div class="link-material">
+                                    <form action="{{ url_for('eliminar_profesores') }}" method="POST" style="display:inline;">
+                                        <input type="hidden" name="id_profesor" value="{{ profesor.id_profesor }}">
+                                        <button type="submit" class="btn-eliminar">Eliminar</button>
+                                    </form>                   
+                                </div>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
+            </article>
+        </section>
+    </main>
+    <div id="mainContent">
+        <div id="agregarProfesorModal" class="modal">
+            <div class="modal-content">
+                <button class="close" aria-label="Cerrar">&times;</button>
+                <h2 id="h2-modal-agg-profesor">Agregar Profesor al Curso</h2>
+                <div class="search-bar">
+                    <div>
+                        <label>
+                            <input type="radio" name="searchOption" value="matricula" autofocus> Buscar por Matrícula
+                        </label>
+                    </div>
+                    <input type="text" id="searchInput" placeholder="Buscar...">
+                    <button id="searchBtn" class="btn">Buscar</button>
+                </div>
+                <div id="profesorList">
+                    <!-- Lista para mostrar los profesores -->
+                </div>
+                <div id="assignmentForm" style="display:none;">
+                    <h3>Asignar Profesor</h3>
+                    <form action="/admin/asignar-profesor" method="post">
+                        <input type="hidden" id="selectedProfesorId" name="id_profesor">
+                        <label for="cursosSelect">Curso:</label>
+                        <select id="cursosSelect" name="id_curso">
+                            {% for curso in cursos %}
+                            <option value="{{ curso.id_curso }}">{{ curso.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Asignar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/a-agregar-profesor-cursos.js') }}"></script>
+</body>
+</html> y el python ((
+
+    @app.route('/admin/profesores/')
+def a_cursos_profesor():
+
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='',
+        database='jes'
+    )
+    
+    cursor = connection.cursor(pymysql.cursors.DictCursor)    
+    sql = 'SELECT *, profesores.imagen_perfil AS ping FROM profesores JOIN asignaturas on asignaturas.id_asignatura = profesores.id_asignatura'
+    cursor.execute(sql)
+    profesores = cursor.fetchall()
+
+    sql_cursos = 'SELECT * FROM cursos'
+    cursor.execute(sql_cursos)
+    cursos = cursor.fetchall()
+
+    cursor.close()
+    return render_template('./admin/a-profesor-1_a.html', profesores=profesores, cursos=cursos)
+))
+}=====================================================================================================
+
+<form action="/admin/actualizar_estudiantes/" method="post" enctype="multipart/form-data"
+                class="form-container">
+                <fieldset>
+                    <legend>Editar Perfil del Estudiante</legend>
+                    <input type="hidden" name="id_estudiante" value="{{ estudiante.id_estudiante }}">
+                    <div class="form-group">
+                        <div class="subir-imagen-registro">
+                            <div class="imagen-registro-preview" id="preview">
+                                <!-- Previsualización de imagen -->
+                                <img src="{{ url_for('static', filename=estudiante.imagen_perfil) }}"
+                                    alt="Imagen de perfil" id="currentImage">
+                            </div>
+                            <label for="subir-imagen" class="btn-subir-imagen" id="btnSubirImagen">Subir Imagen</label>
+                            <input type="file" id="subir-imagen" name="imagen_perfil" accept="image/*" onchange="previewImage(event)">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input value="{{ estudiante.nombre }}" type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="apellidos">Apellidos:</label>
+                        <input value="{{ estudiante.apellidos }}" type="text" id="apellidos" name="apellidos" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="matricula">Matrícula:</label>
+                        <input value="{{ estudiante.matricula }}" type="text" id="matricula" name="matricula" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Direccion:</label>
+                        <input value="{{ estudiante.direccion }}" type="text" id="direccion" name="direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Genero:</label>
+                        <input value="{{ estudiante.genero }}" type="text" id="genero" name="genero" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico:</label>
+                        <input value="{{ estudiante.email }}" type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Telefono:</label>
+                        <input value="{{ estudiante.telefono }}" type="tel" id="telefono" name="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contrasena">Contraseña:</label>
+                        <input value="{{ estudiante.contraseña }}" type="password" id="contraseña" name="contraseña"
+                            required>
+                    </div>
+                    <button type="submit" class="btn-guardar-cambios">Guardar Cambios</button>
+                </fieldset>
+            </form>

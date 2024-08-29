@@ -15,3 +15,18 @@
         reader.readAsDataURL(file);
  }
 });
+
+function previewImage(event) {
+    const preview = document.getElementById('preview');
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+        const img = document.getElementById('currentImage');
+        img.src = e.target.result;
+    }
+    
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}

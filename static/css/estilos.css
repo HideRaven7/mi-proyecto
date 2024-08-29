@@ -1684,7 +1684,7 @@ textarea.editable {
     background-color: #0000003a;
     color: #FFF;
 }
-
+/*
 .cabecera-tabla-estudiantes-a button {
     height: 65%;
     position: absolute;
@@ -1698,7 +1698,7 @@ textarea.editable {
 
 .cabecera-tabla-estudiantes-a figure {
     margin: 0 auto;
-}
+} */
 
 .tabla-admin-e {
     margin-top: 0;
@@ -1791,25 +1791,6 @@ textarea.editable {
     margin-bottom: 5px;
     font-size: 18px;
     width: 80%;
-}
-
-
-.cabecera-curso-admin {
-    justify-content: space-between;
-}
-
-.cabecera-curso-admin a{
-    color: white;
-    text-decoration: none;
-    border: 1px solid #ffc83d5b;
-    padding: 5px 20px;
-    margin: 0 10px;
-    border-radius: 4px;
-} 
-
-.cabecera-curso-admin a:hover {
-    background-color: #ffc83d5b;
-    transition: all 0.6s ease;
 }
 
 .identificador-curso {
@@ -2727,6 +2708,15 @@ textarea.editable {
     width: 80%; 
 }
 
+.modals-container .modal-content{
+    background-color: transparent;
+    border: none;
+}
+
+.modals-container .close{
+    display: none;
+}
+
 .close {
     color: #aaa;
     float: right;
@@ -2741,6 +2731,27 @@ textarea.editable {
     cursor: pointer;
 }
 
+/* Para eliminar el estilo al a del curso */
+
+.h-c-a {
+    border: none;
+    text-decoration: none;
+}
+
+.h-c-a:hover {
+    background-color: transparent;
+}
+
+/* boton-editar en home */
+
+.btn-editar {
+    border: 1px solid rgba(255, 255, 255, 0.089);
+    margin-left: 2px;
+    padding: 2px 5px;
+    padding-bottom: 3px;
+    color: white;
+    text-decoration: none;
+}
 
 /* Movil */
 
